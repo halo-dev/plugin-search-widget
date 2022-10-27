@@ -34,6 +34,7 @@ jar {
 dependencies {
     compileOnly "io.swagger.core.v3:swagger-core-jakarta:2.2.0"
     compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+    compileOnly 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compileOnly 'org.pf4j:pf4j:3.6.0'
 
     compileOnly files("lib/halo-2.0.0-SNAPSHOT-plain.jar")
