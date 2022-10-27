@@ -46,7 +46,7 @@ function createComponent() {
       onVisibleChange(visible: boolean) {
         if (!visible) {
           setTimeout(() => {
-            container && document.body.removeChild(container);
+            app.unmount();
           }, 200);
         }
       },
