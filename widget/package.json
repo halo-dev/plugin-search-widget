@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@halo-dev/search-widget": "^1.0.0-alpha.1",
+    "@halo-dev/search-widget": "^1.0.0-alpha.2",
     "vue": "^3.2.41",
     "vue-router": "^4.1.5"
   },

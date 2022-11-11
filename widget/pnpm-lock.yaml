@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@halo-dev/search-widget': ^1.0.0-alpha.1
+  '@halo-dev/search-widget': ^1.0.0-alpha.2
   '@rushstack/eslint-patch': ^1.1.4
   '@types/node': ^16.11.68
   '@vitejs/plugin-vue': ^2.3.4
@@ -20,7 +20,7 @@ specifiers:
   vue-tsc: ^1.0.8
 
 dependencies:
-  '@halo-dev/search-widget': 1.0.0-alpha.1
+  '@halo-dev/search-widget': 1.0.0-alpha.2
   vue: 3.2.41
   vue-router: 4.1.6_vue@3.2.41
 
@@ -174,8 +174,8 @@ packages:
       vue-router: 4.1.6_vue@3.2.41
     dev: false
 
-  /@halo-dev/search-widget/1.0.0-alpha.1:
-    resolution: {integrity: sha512-Uj5i5InVSohaLFUaxj5aHDgszTCDEiwCXKFDaM/uWhk0Ty0VELmcXMh2iknXzPvnzM/yDd7UXgUXjR1SgQfRmA==}
+  /@halo-dev/search-widget/1.0.0-alpha.2:
+    resolution: {integrity: sha512-9XN2Rd1QRECi8cDs+jIp+RaAfGTxZnTFXSzeNJBV/y/ZWcvB22M718mr/BDxKMnBpB8l6fgiCf9qplVRCgcvOA==}
     dependencies:
       '@halo-dev/components': 0.0.0-alpha.5_4dzfggngbcv3f6kocd3r4z3f4q
       '@vueuse/core': 9.4.0_vue@3.2.41
