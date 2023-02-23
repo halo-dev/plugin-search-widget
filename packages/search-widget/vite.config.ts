@@ -9,24 +9,24 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
-      vue: "vue/dist/vue.esm-bundler.js",
     },
   },
   build: {
-    outDir: fileURLToPath(
-      new URL("../src/main/resources/static", import.meta.url)
-    ),
-    emptyOutDir: true,
-    cssCodeSplit: false,
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      formats: ["iife"],
-      name: "SearchWidget",
-      fileName: (format) => `search-widget.${format}.js`,
+      name: "HaloSearchWidget",
+      formats: ["es", "iife"],
+      fileName: (format) => `halo-search-widget.${format}.js`,
     },
-    sourcemap: true,
-  },
-  optimizeDeps: {
-    include: ["vue"],
+    rollupOptions: {
+      external: ["vue", "vue-router"],
+      output: {
+        globals: {
+          vue: "Vue",
+          "vue-router": "VueRouter",
+        },
+        exports: "named",
+      },
+    },
   },
 });

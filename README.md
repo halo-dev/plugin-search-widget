@@ -17,6 +17,8 @@ cd path/to/plugin-search-widget
 ```
 
 ```bash
+./gradlew pnpmInstall
+
 ./gradlew build
 ```
 
