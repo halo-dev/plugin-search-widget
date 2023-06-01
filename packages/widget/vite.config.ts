@@ -24,7 +24,7 @@ export default defineConfig({
       name: "SearchWidget",
       fileName: (format) => `search-widget.${format}.js`,
     },
-    sourcemap: true,
+    sourcemap: false,
   },
   optimizeDeps: {
     include: ["vue"],

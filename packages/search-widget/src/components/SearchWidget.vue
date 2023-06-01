@@ -127,6 +127,7 @@ const onVisibleChange = (visible: boolean) => {
     :body-class="['!p-0']"
     :width="650"
     :centered="false"
+    layer-closable
     @update:visible="onVisibleChange"
   >
     <div id="search-input" class="border-b border-gray-100 px-4 py-2.5">
@@ -161,7 +162,7 @@ const onVisibleChange = (visible: boolean) => {
           @click="handleOpenLink(item)"
         >
           <div
-            class="rounded-md px-2 py-2.5 bg-gray-50 hover:bg-gray-100 flex flex-col gap-1"
+            class="flex flex-col gap-1 rounded-md bg-gray-50 px-2 py-2.5 hover:bg-gray-100"
             :class="{
               '!bg-gray-100': selectedIndex === itemIndex,
             }"
