@@ -12,6 +12,9 @@ export default defineConfig({
       vue: "vue/dist/vue.esm-bundler.js",
     },
   },
+  define: {
+    "process.env": process.env
+  },
   build: {
     outDir: fileURLToPath(
       new URL("../../src/main/resources/static", import.meta.url)
