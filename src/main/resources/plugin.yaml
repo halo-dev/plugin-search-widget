@@ -4,8 +4,7 @@ metadata:
   name: PluginSearchWidget
 spec:
   enabled: true
-  version: 1.0.0
-  requires: ">=2.0.0"
+  requires: ">=2.5.0"
   author:
     name: Halo OSS Team
     website: https://github.com/halo-dev
