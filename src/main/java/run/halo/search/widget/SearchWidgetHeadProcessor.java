@@ -25,7 +25,7 @@ public class SearchWidgetHeadProcessor implements TemplateHeadProcessor {
     private String searchWidgetScript() {
         return """
                 <!-- PluginSearchWidget start -->
-                <script src="/plugins/PluginSearchWidget/assets/static/search-widget.iife.js"></script>
+                <script src="/plugins/PluginSearchWidget/assets/static/search-widget.iife.js" async></script>
                 <!-- PluginSearchWidget end -->
                 """;
     }

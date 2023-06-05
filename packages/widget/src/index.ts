@@ -5,25 +5,18 @@ import "./styles/style.css";
 import "@halo-dev/search-widget/dist/style.css";
 
 // SearchWidget will mount this dom
-let container: HTMLElement | undefined;
-let root: HTMLElement | undefined;
-
-(() => {
-  document.addEventListener("DOMContentLoaded", () => {
-    container = document.createElement("div");
-    root = document.createElement("div");
-    const styleEl = document.createElement("link");
-    const shadowDOM = container.attachShadow?.({ mode: "open" }) || container;
-    styleEl.setAttribute("rel", "stylesheet");
-    styleEl.setAttribute(
-      "href",
-      "/plugins/PluginSearchWidget/assets/static/style.css"
-    );
-    shadowDOM.appendChild(styleEl);
-    shadowDOM.appendChild(root);
-    document.body.appendChild(container);
-  });
-})();
+const container = document.createElement("div");
+const root = document.createElement("div");
+const styleEl = document.createElement("link");
+const shadowDOM = container.attachShadow?.({ mode: "open" }) || container;
+styleEl.setAttribute("rel", "stylesheet");
+styleEl.setAttribute(
+  "href",
+  "/plugins/PluginSearchWidget/assets/static/style.css"
+);
+shadowDOM.appendChild(styleEl);
+shadowDOM.appendChild(root);
+document.body.appendChild(container);
 
 function createComponent() {
   if (!container || !root) {
