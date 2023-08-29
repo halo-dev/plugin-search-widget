@@ -130,80 +130,85 @@ const onVisibleChange = (visible: boolean) => {
     layer-closable
     @update:visible="onVisibleChange"
   >
-    <div id="search-input" class="border-b border-gray-100 px-4 py-2.5">
-      <input
-        ref="searchInput"
-        v-model="keyword"
-        placeholder="输入关键词以搜索"
-        class="w-full py-1 text-base outline-none"
-        autocomplete="off"
-        autocorrect="off"
-        spellcheck="false"
-        @input="handleSearch"
-      />
-    </div>
-    <div class="px-2 py-2.5">
+    <div class="bg-slate-50 dark:bg-slate-950">
       <div
-        v-if="!searchResults.hits.length"
-        class="flex items-center justify-center text-sm text-gray-500"
+        id="search-input"
+        class="border-b border-gray-100 px-4 py-2.5 dark:border-gray-800"
       >
-        <span>没有搜索结果</span>
+        <input
+          ref="searchInput"
+          v-model="keyword"
+          placeholder="输入关键词以搜索"
+          class="w-full bg-gray-50 py-1 text-base outline-none dark:bg-gray-950"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          @input="handleSearch"
+        />
       </div>
-      <ul
-        v-else
-        class="box-border flex h-full w-full flex-col gap-1"
-        role="list"
-      >
-        <li
-          v-for="(item, itemIndex) in searchResults.hits"
-          :id="`search-item-${itemIndex}`"
-          :key="itemIndex"
-          class="cursor-pointer"
-          @click="handleOpenLink(item)"
+      <div class="px-2 py-2.5">
+        <div
+          v-if="!searchResults.hits.length"
+          class="flex items-center justify-center text-sm text-gray-500"
         >
-          <div
-            class="flex flex-col gap-1 rounded-md bg-gray-50 px-2 py-2.5 hover:bg-gray-100"
-            :class="{
-              '!bg-gray-100': selectedIndex === itemIndex,
-            }"
+          <span>没有搜索结果</span>
+        </div>
+        <ul
+          v-else
+          class="box-border flex h-full w-full flex-col gap-1"
+          role="list"
+        >
+          <li
+            v-for="(item, itemIndex) in searchResults.hits"
+            :id="`search-item-${itemIndex}`"
+            :key="itemIndex"
+            class="cursor-pointer"
+            @click="handleOpenLink(item)"
           >
             <div
-              v-if="item.title"
-              class="text-sm font-semibold text-gray-900"
-              v-html="item.title"
-            ></div>
-            <div
-              v-if="item.content"
-              class="text-xs text-gray-600"
-              v-html="item.content"
-            ></div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="border-t border-gray-100 px-4 py-2.5">
-      <div class="flex items-center justify-end">
-        <span class="mr-1 text-xs text-gray-600">选择</span>
-        <kbd
-          class="mr-1 w-5 rounded border p-0.5 text-center text-[10px] text-gray-600 shadow-sm"
-        >
-          ↑
-        </kbd>
-        <kbd
-          class="mr-5 w-5 rounded border p-0.5 text-center text-[10px] text-gray-600 shadow-sm"
-        >
-          ↓
-        </kbd>
-        <span class="mr-1 text-xs text-gray-600">确认</span>
-        <kbd
-          class="mr-5 rounded border p-0.5 text-[10px] text-gray-600 shadow-sm"
-        >
-          Enter
-        </kbd>
-        <span class="mr-1 text-xs text-gray-600">关闭</span>
-        <kbd class="rounded border p-0.5 text-[10px] text-gray-600 shadow-sm">
-          Esc
-        </kbd>
+              class="flex flex-col gap-1 rounded-md bg-gray-50 px-2 py-2.5 hover:bg-gray-100 dark:bg-gray-950 dark:hover:bg-gray-900"
+              :class="{
+                '!bg-gray-100 dark:!bg-gray-900': selectedIndex === itemIndex,
+              }"
+            >
+              <div
+                v-if="item.title"
+                class="text-sm font-semibold text-gray-900 dark:text-gray-100"
+                v-html="item.title"
+              ></div>
+              <div
+                v-if="item.content"
+                class="text-xs text-gray-600 dark:text-gray-400"
+                v-html="item.content"
+              ></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="border-t border-gray-100 px-4 py-2.5 dark:border-gray-800">
+        <div class="flex items-center justify-end">
+          <span class="mr-1 text-xs text-gray-600">选择</span>
+          <kbd
+            class="mr-1 w-5 rounded border p-0.5 text-center text-[10px] text-gray-600 shadow-sm"
+          >
+            ↑
+          </kbd>
+          <kbd
+            class="mr-5 w-5 rounded border p-0.5 text-center text-[10px] text-gray-600 shadow-sm"
+          >
+            ↓
+          </kbd>
+          <span class="mr-1 text-xs text-gray-600">确认</span>
+          <kbd
+            class="mr-5 rounded border p-0.5 text-[10px] text-gray-600 shadow-sm"
+          >
+            Enter
+          </kbd>
+          <span class="mr-1 text-xs text-gray-600">关闭</span>
+          <kbd class="rounded border p-0.5 text-[10px] text-gray-600 shadow-sm">
+            Esc
+          </kbd>
+        </div>
       </div>
     </div>
   </VModal>
