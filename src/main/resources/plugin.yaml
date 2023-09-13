@@ -2,6 +2,10 @@ apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
   name: PluginSearchWidget
+  annotations:
+    # Add supports for Halo App Store
+    # https://halo.run/store/apps/app-DlacW
+    "store.halo.run/app-id": "app-DlacW"
 spec:
   enabled: true
   requires: ">=2.5.0"
