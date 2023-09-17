@@ -13,9 +13,9 @@ spec:
     name: Halo OSS Team
     website: https://github.com/halo-dev
   logo: logo.svg
-  homepage: https://github.com/halo-sigs/plugin-search-widget
+  homepage: https://github.com/halo-dev/plugin-search-widget
   displayName: "搜索组件"
   description: "为 Halo 2.0 提供统一的搜索组件，方便主题端使用。"
   license:
     - name: "GPL-3.0"
-      url: "https://github.com/halo-sigs/plugin-search-widget/blob/main/LICENSE"
+      url: "https://github.com/halo-dev/plugin-search-widget/blob/main/LICENSE"
