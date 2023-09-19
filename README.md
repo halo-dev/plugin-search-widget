@@ -1,11 +1,11 @@
 # plugin-search-widget
 
-此插件是对 [halo-sigs/search-widget](https://github.com/halo-sigs/search-widget) 的一个封装，安装之后即可通过调用 JS API 的形式唤起搜索框。
+Halo 2.0 的通用搜索组件插件。
 
 ## 使用方式
 
 1. 下载，目前提供以下两个下载方式：
-    - GitHub Releases：访问 [Releases](https://github.com/halo-sigs/plugin-search-widget/releases) 下载 Assets 中的 JAR 文件。
+    - GitHub Releases：访问 [Releases](https://github.com/halo-dev/plugin-search-widget/releases) 下载 Assets 中的 JAR 文件。
     - Halo 应用市场：<https://halo.run/store/apps/app-DlacW>。
 2. 安装，插件安装和更新方式可参考：<https://docs.halo.run/user-guide/plugins>。
 
@@ -14,7 +14,7 @@
 ## 开发环境
 
 ```bash
-git clone git@github.com:halo-sigs/plugin-search-widget.git
+git clone git@github.com:halo-dev/plugin-search-widget.git
 
 # 或者当你 fork 之后
 
