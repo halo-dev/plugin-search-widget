@@ -72,9 +72,7 @@ export class SearchModal extends LitElement {
       width: 100%;
       flex: none;
       background-color: rgb(107 114 128 / 0.75);
-      transition-property: opacity;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 0.15s;
+      animation: fadeIn 0.15s both;
     }
 
     .modal-content {
@@ -88,6 +86,29 @@ export class SearchModal extends LitElement {
       max-height: calc(100vh - 5rem);
       max-width: 650px;
       overflow: auto;
+      animation: fadeInUp 0.3s both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 10%, 0);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
     }
   `;
 }
