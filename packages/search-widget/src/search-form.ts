@@ -1,5 +1,5 @@
 import { LitElement, html, css, PropertyValueMap } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import type { Hit, Result } from './type';
 import { debounce } from 'lodash-es';
@@ -13,6 +13,9 @@ export class SearchForm extends LitElement {
     super();
     this.addEventListener('keydown', this.handleKeydown);
   }
+
+  @property({ type: String })
+  baseUrl = '';
 
   @state()
   private hits: Hit[] = [];
@@ -96,7 +99,7 @@ export class SearchForm extends LitElement {
   fetchHits: DebouncedFunc<(keyword: string) => Promise<void>> = debounce(
     async (keyword: string) => {
       const response = await fetch(
-        `https://ryanc.cc/apis/api.halo.run/v1alpha1/indices/post?keyword=${keyword}&highlightPreTag=%3Cmark%3E&highlightPostTag=%3C/mark%3E`
+        `${this.baseUrl}/apis/api.halo.run/v1alpha1/indices/post?keyword=${keyword}&highlightPreTag=%3Cmark%3E&highlightPostTag=%3C/mark%3E`
       );
       const data = (await response.json()) as Result;
       this.hits = data.hits || [];

@@ -10,6 +10,9 @@ export class SearchModal extends LitElement {
   })
   open = false;
 
+  @property({ type: String })
+  baseUrl = '';
+
   override render() {
     return html`<div
       class="modal-wrapper"
