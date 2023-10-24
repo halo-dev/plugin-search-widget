@@ -20,7 +20,9 @@ export class SearchModal extends LitElement {
     >
       <div class="modal-layer" @click="${this.close}"></div>
       <div class="modal-content">
-        ${this.open ? html`<search-form></search-form>` : ''}
+        ${this.open
+          ? html`<search-form baseUrl=${this.baseUrl}></search-form>`
+          : ''}
       </div>
     </div>`;
   }
