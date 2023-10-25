@@ -31,7 +31,7 @@ export class SearchForm extends LitElement {
 
   override render() {
     return html`
-      <div class="search-input">
+      <div class="search-form__input">
         <input
           @input="${this.onInput}"
           placeholder="输入关键词以搜索"
@@ -41,29 +41,29 @@ export class SearchForm extends LitElement {
           ${ref(this.inputRef)}
         />
       </div>
-      <div class="search-result">
+      <div class="search-form__result">
         ${!this.loading && this.hits.length === 0
-          ? html`<div class="search-empty">
+          ? html`<div class="search-form__empty">
               <span>没有搜索结果</span>
             </div>`
           : ''}
         ${this.loading
-          ? html`<div class="search-loading"><span>搜索中...</span></div>`
+          ? html`<div class="search-form__loading"><span>搜索中...</span></div>`
           : html`
-              <ul class="search-result-wrapper" role="list">
+              <ul class="search-form__result-wrapper" role="list">
                 ${this.hits.map(
                   (hit, index) =>
                     html`<li @click="${() => this.handleOpenLink(hit)}">
                       <div
                         class="${classMap({
-                          'search-result-item': true,
+                          'search-form__result-item': true,
                           selected: index === this.selectedIndex - 1,
                         })}"
                       >
-                        <h2 class="search-result-item-title">
+                        <h2 class="search-form__result-item-title">
                           ${unsafeHTML(hit.title)}
                         </h2>
-                        <p class="search-result-item-content">
+                        <p class="search-form__result-item-content">
                           ${unsafeHTML(hit.content)}
                         </p>
                       </div>
@@ -72,19 +72,19 @@ export class SearchForm extends LitElement {
               </ul>
             `}
       </div>
-      <div class="search-form-commands">
-        <div class="search-form-commands-item">
+      <div class="search-form__commands">
+        <div class="search-form__commands-item">
           <span>选择</span>
           <kbd> ↑ </kbd>
           <kbd> ↓ </kbd>
         </div>
 
-        <div class="search-form-commands-item">
+        <div class="search-form__commands-item">
           <span>确认</span>
           <kbd> Enter </kbd>
         </div>
 
-        <div class="search-form-commands-item">
+        <div class="search-form__commands-item">
           <span>关闭</span>
           <kbd> Esc </kbd>
         </div>
@@ -144,7 +144,7 @@ export class SearchForm extends LitElement {
     }
 
     if (key === 'Enter') {
-      const hit = this.hits[this.selectedIndex];
+      const hit = this.hits[this.selectedIndex - 1];
       if (hit) {
         this.handleOpenLink(hit);
       }
@@ -167,7 +167,7 @@ export class SearchForm extends LitElement {
         font-variation-settings: normal;
       }
 
-      .search-input {
+      .search-form__input {
         border-bottom-width: 1px;
         border-color: rgb(243 244 246);
         padding: 0.625rem 1rem;
@@ -176,7 +176,7 @@ export class SearchForm extends LitElement {
         background-color: #fff;
       }
 
-      .search-input input {
+      .search-form__input input {
         width: 100%;
         padding: 0.25rem 0px;
         outline: 2px solid transparent;
@@ -186,12 +186,12 @@ export class SearchForm extends LitElement {
         line-height: 1.5rem;
       }
 
-      .search-result {
+      .search-form__result {
         padding: 0.625rem 0.5rem;
       }
 
-      .search-empty,
-      .search-loading {
+      .search-form__empty,
+      .search-form__loading {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -200,7 +200,7 @@ export class SearchForm extends LitElement {
         color: rgb(107 114 128);
       }
 
-      .search-result-wrapper {
+      .search-form__result-wrapper {
         box-sizing: border-box;
         display: flex;
         width: 100%;
@@ -212,11 +212,11 @@ export class SearchForm extends LitElement {
         padding: 0;
       }
 
-      .search-result-wrapper li {
+      .search-form__result-wrapper li {
         cursor: pointer;
       }
 
-      .search-result-item {
+      .search-form__result-item {
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
@@ -225,12 +225,12 @@ export class SearchForm extends LitElement {
         padding: 0.5rem 0.625rem;
       }
 
-      .search-result-item:hover,
-      .search-result-item.selected {
+      .search-form__result-item:hover,
+      .search-form__result-item.selected {
         background-color: rgb(243 244 246);
       }
 
-      .search-result-item-title {
+      .search-form__result-item-title {
         font-size: 0.875rem;
         line-height: 1.25rem;
         font-weight: 600;
@@ -238,7 +238,7 @@ export class SearchForm extends LitElement {
         margin: 0;
       }
 
-      .search-result-item-content {
+      .search-form__result-item-content {
         font-size: 0.75rem;
         line-height: 1rem;
         color: rgb(75 85 99);
@@ -246,7 +246,7 @@ export class SearchForm extends LitElement {
         margin: 0;
       }
 
-      .search-form-commands {
+      .search-form__commands {
         border-top-width: 1px;
         border-color: rgb(243 244 246);
         padding: 0.625rem 1rem;
@@ -254,19 +254,19 @@ export class SearchForm extends LitElement {
         justify-content: flex-end;
       }
 
-      .search-form-commands-item {
+      .search-form__commands-item {
         display: inline-flex;
         align-items: center;
         margin-left: 1.25rem;
       }
 
-      .search-form-commands-item span {
+      .search-form__commands-item span {
         font-size: 0.75rem;
         line-height: 1rem;
         color: rgb(75 85 99);
       }
 
-      .search-form-commands-item kbd {
+      .search-form__commands-item kbd {
         color: rgb(75 85 99);
         font-size: 10px;
         text-align: center;

@@ -15,11 +15,11 @@ export class SearchModal extends LitElement {
 
   override render() {
     return html`<div
-      class="modal-wrapper"
+      class="modal__wrapper"
       style="${styleMap({ display: this.open ? 'flex' : 'none' })}"
     >
-      <div class="modal-layer" @click="${this.close}"></div>
-      <div class="modal-content">
+      <div class="modal__layer" @click="${this.close}"></div>
+      <div class="modal__content">
         ${this.open
           ? html`<search-form baseUrl=${this.baseUrl}></search-form>`
           : ''}
@@ -51,7 +51,7 @@ export class SearchModal extends LitElement {
   }
 
   static override styles = css`
-    .modal-wrapper {
+    .modal__wrapper {
       position: fixed;
       left: 0px;
       top: 0px;
@@ -66,7 +66,7 @@ export class SearchModal extends LitElement {
       z-index: 999;
     }
 
-    .modal-layer {
+    .modal__layer {
       position: absolute;
       top: 0px;
       left: 0px;
@@ -77,7 +77,7 @@ export class SearchModal extends LitElement {
       animation: fadeIn 0.15s both;
     }
 
-    .modal-content {
+    .modal__content {
       position: relative;
       display: flex;
       flex-direction: column;
