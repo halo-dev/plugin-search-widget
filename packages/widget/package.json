@@ -1,15 +1,10 @@
 {
-  "version": "1.0.0",
-  "private": true,
   "scripts": {
+    "build": "tsc && vite build",
     "dev": "vite",
-    "build": "run-p type-check build-only",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint 'src/**/*.ts'",
+    "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write"
   },
-  "license": "GPL-3.0",
   "dependencies": {
     "@halo-dev/search-widget": "workspace:*"
   }

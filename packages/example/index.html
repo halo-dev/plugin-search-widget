@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Lit + TS</title>
+    <script type="module" src="/src/main.ts"></script>
+    <style>
+      :root {
+        --halo-bg: #000;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <search-modal baseUrl="https://ryanc.cc"></search-modal>
+    <search-form baseUrl="http://127.0.0.1:8090"></search-form>
+    <button id="btn">点开</button>
+    <script>
+      const btn = document.getElementById("btn");
+      btn.addEventListener("click", () => {
+        const searchModal = document.querySelector("search-modal");
+        searchModal.open = true;
+      });
+    </script>
   </body>
 </html>

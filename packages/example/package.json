@@ -1,11 +1,6 @@
 {
-  "name": "@halo-dev/search-widget-example",
-  "version": "0.0.0",
-  "private": true,
   "scripts": {
-    "dev": "vite",
-    "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "dev": "vite"
   },
   "dependencies": {
     "@halo-dev/search-widget": "workspace:*"

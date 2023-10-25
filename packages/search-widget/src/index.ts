@@ -1,14 +1,4 @@
-import SearchWidget from "@/components/SearchWidget.vue";
-import "@halo-dev/components/dist/style.css";
-import "@/styles/tailwind.css";
-import type { App, Plugin } from "vue";
+import { SearchForm } from './search-form';
+import { SearchModal } from './search-modal';
 
-const plugin: Plugin = {
-  install(app: App) {
-    app.component("SearchWidget", SearchWidget);
-  },
-};
-
-export default plugin;
-
-export { SearchWidget };
+export { SearchForm, SearchModal };
