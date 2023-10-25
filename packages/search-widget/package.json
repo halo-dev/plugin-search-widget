@@ -15,6 +15,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "tsc -w",
     "build": "tsc",
     "lint": "lit-analyzer && eslint 'src/**/*.ts'",
     "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write"

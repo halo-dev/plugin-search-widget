@@ -6,6 +6,7 @@ import { debounce } from 'lodash-es';
 import type { DebouncedFunc } from 'lodash-es';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { classMap } from 'lit/directives/class-map.js';
+import resetStyles from './styles/reset';
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -71,6 +72,23 @@ export class SearchForm extends LitElement {
               </ul>
             `}
       </div>
+      <div class="search-form-commands">
+        <div class="search-form-commands-item">
+          <span>选择</span>
+          <kbd> ↑ </kbd>
+          <kbd> ↓ </kbd>
+        </div>
+
+        <div class="search-form-commands-item">
+          <span>确认</span>
+          <kbd> Enter </kbd>
+        </div>
+
+        <div class="search-form-commands-item">
+          <span>关闭</span>
+          <kbd> Esc </kbd>
+        </div>
+      </div>
     `;
   }
 
@@ -133,99 +151,134 @@ export class SearchForm extends LitElement {
     }
   };
 
-  static override styles = css`
-    :host * {
-      box-sizing: border-box;
-      border-width: 0;
-      border-style: solid;
-      border-color: #e5e7eb;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-        Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,
-        'Noto Color Emoji';
-      font-feature-settings: normal;
-      font-variation-settings: normal;
-    }
+  static override styles = [
+    resetStyles,
+    css`
+      :host * {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e5e7eb;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+          'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,
+          'Noto Color Emoji';
+        font-feature-settings: normal;
+        font-variation-settings: normal;
+      }
 
-    .search-input {
-      border-bottom-width: 1px;
-      border-color: rgb(243 244 246);
-      padding: 0.625rem 1rem;
-      position: sticky;
-      top: 0;
-      background-color: #fff;
-    }
+      .search-input {
+        border-bottom-width: 1px;
+        border-color: rgb(243 244 246);
+        padding: 0.625rem 1rem;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+      }
 
-    .search-input input {
-      width: 100%;
-      padding: 0.25rem 0px;
-      outline: 2px solid transparent;
-      outline-offset: 2px;
-      border: none;
-      font-size: 1rem;
-      line-height: 1.5rem;
-    }
+      .search-input input {
+        width: 100%;
+        padding: 0.25rem 0px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        border: none;
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
 
-    .search-result {
-      padding: 0.625rem 0.5rem;
-    }
+      .search-result {
+        padding: 0.625rem 0.5rem;
+      }
 
-    .search-empty,
-    .search-loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      color: rgb(107 114 128);
-    }
+      .search-empty,
+      .search-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: rgb(107 114 128);
+      }
 
-    .search-result-wrapper {
-      box-sizing: border-box;
-      display: flex;
-      width: 100%;
-      height: 100%;
-      flex-direction: column;
-      gap: 0.25rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+      .search-result-wrapper {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        gap: 0.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
 
-    .search-result-wrapper li {
-      cursor: pointer;
-    }
+      .search-result-wrapper li {
+        cursor: pointer;
+      }
 
-    .search-result-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      border-radius: 0.375rem;
-      background-color: rgb(249 250 251);
-      padding: 0.5rem 0.625rem;
-    }
+      .search-result-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        border-radius: 0.375rem;
+        background-color: rgb(249 250 251);
+        padding: 0.5rem 0.625rem;
+      }
 
-    .search-result-item:hover,
-    .search-result-item.selected {
-      background-color: rgb(243 244 246);
-    }
+      .search-result-item:hover,
+      .search-result-item.selected {
+        background-color: rgb(243 244 246);
+      }
 
-    .search-result-item-title {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      font-weight: 600;
-      padding: 0;
-      margin: 0;
-    }
+      .search-result-item-title {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 600;
+        padding: 0;
+        margin: 0;
+      }
 
-    .search-result-item-content {
-      font-size: 0.75rem;
-      line-height: 1rem;
-      color: rgb(75 85 99);
-      padding: 0;
-      margin: 0;
-    }
-  `;
+      .search-result-item-content {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: rgb(75 85 99);
+        padding: 0;
+        margin: 0;
+      }
+
+      .search-form-commands {
+        border-top-width: 1px;
+        border-color: rgb(243 244 246);
+        padding: 0.625rem 1rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .search-form-commands-item {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 1.25rem;
+      }
+
+      .search-form-commands-item span {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: rgb(75 85 99);
+      }
+
+      .search-form-commands-item kbd {
+        color: rgb(75 85 99);
+        font-size: 10px;
+        text-align: center;
+        padding: 0.125rem 0.3rem;
+        border-width: 1px;
+        border-radius: 0.25rem;
+        min-width: 1.25rem;
+        margin-left: 0.3rem;
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      }
+    `,
+  ];
 }
 
 declare global {

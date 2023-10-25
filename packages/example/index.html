@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit + TS</title>
     <script type="module" src="/src/main.ts"></script>
+    <style>
+      :root {
+        --halo-bg: #000;
+      }
+    </style>
   </head>
   <body>
-    <search-modal baseUrl="http://127.0.0.1:8090"></search-modal>
-    <search-form></search-form>
-    <button id="cao">点开</button>
+    <search-modal baseUrl="https://ryanc.cc"></search-modal>
+    <search-form baseUrl="http://127.0.0.1:8090"></search-form>
+    <button id="btn">点开</button>
     <script>
-      const cao = document.getElementById("cao");
-      cao.addEventListener("click", () => {
+      const btn = document.getElementById("btn");
+      btn.addEventListener("click", () => {
         const searchModal = document.querySelector("search-modal");
         searchModal.open = true;
       });
