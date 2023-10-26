@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit + TS</title>
     <script type="module" src="/src/main.ts"></script>
+
     <style>
-      :root {
-        --halo-bg: #000;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --halo-search-widget-color-modal-layer: rgba(0, 0, 0, 0.8);
+          --halo-search-widget-color-modal-content-bg: rgb(15 23 42);
+          --halo-search-widget-color-form-input: rgb(255, 255, 255);
+          --halo-search-widget-color-form-input-placeholder: rgb(148 163 184);
+          --halo-search-widget-color-form-input-bg: rgb(15 23 42);
+          --halo-search-widget-color-form-divider: rgb(30 41 59);
+          --halo-search-widget-color-result-item-bg: rgb(30 41 59);
+          --halo-search-widget-color-result-item-hover-bg: rgb(51 65 85);
+          --halo-search-widget-color-result-item-title: rgb(255 255 255);
+          --halo-search-widget-color-result-item-content: rgb(148 163 184);
+          --halo-search-widget-color-command-kbd-item: rgb(148 163 184);
+          --halo-search-widget-color-command-kbd-border: rgb(30 41 59);
+          --halo-search-widget-color-result-empty: rgb(148 163 184);
+        }
       }
     </style>
   </head>
