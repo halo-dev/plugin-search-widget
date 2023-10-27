@@ -51,6 +51,17 @@ export class SearchModal extends LitElement {
   }
 
   static override styles = css`
+    :host {
+      --color-modal-layer: var(
+        --halo-search-widget-color-modal-layer,
+        rgb(107 114 128 / 0.75)
+      );
+      --color-modal-content-bg: var(
+        --halo-search-widget-color-modal-content-bg,
+        #fff
+      );
+    }
+
     .modal__wrapper {
       position: fixed;
       left: 0px;
@@ -73,7 +84,7 @@ export class SearchModal extends LitElement {
       height: 100%;
       width: 100%;
       flex: none;
-      background-color: rgb(107 114 128 / 0.75);
+      background-color: var(--color-modal-layer);
       animation: fadeIn 0.15s both;
     }
 
@@ -83,7 +94,7 @@ export class SearchModal extends LitElement {
       flex-direction: column;
       align-items: stretch;
       border-radius: 5px;
-      background-color: #fff;
+      background-color: var(--color-modal-content-bg);
       width: calc(100vw - 20px);
       max-height: calc(100vh - 5rem);
       max-width: 650px;

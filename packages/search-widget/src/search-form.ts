@@ -154,6 +154,50 @@ export class SearchForm extends LitElement {
   static override styles = [
     resetStyles,
     css`
+      :host {
+        --color-form-input-bg: var(
+          --halo-search-widget-color-form-input-bg,
+          #fff
+        );
+        --color-form-input: var(--halo-search-widget-color-form-input, #333);
+        --color-form-input-placeholder: var(
+          --halo-search-widget-color-form-input-placeholder,
+          rgb(107 114 128)
+        );
+        --color-form-divider: var(
+          --halo-search-widget-color-form-divider,
+          rgb(243 244 246)
+        );
+        --color-result-empty: var(
+          --halo-search-widget-color-result-empty,
+          rgb(107 114 128)
+        );
+        --color-result-item-bg: var(
+          --halo-search-widget-color-result-item-bg,
+          rgb(249 250 251)
+        );
+        --color-result-item-hover-bg: var(
+          --halo-search-widget-color-result-item-hover-bg,
+          rgb(243 244 246)
+        );
+        --color-result-item-title: var(
+          --halo-search-widget-color-result-item-title,
+          #333
+        );
+        --color-result-item-content: var(
+          --halo-search-widget-color-result-item-content,
+          rgb(75, 85, 99)
+        );
+        --color-command-kbd-item: var(
+          --halo-search-widget-color-command-kbd-item,
+          #333
+        );
+        --color-command-kbd-border: var(
+          --halo-search-widget-color-command-kbd-border,
+          #e5e7eb
+        );
+      }
+
       :host * {
         box-sizing: border-box;
         border-width: 0;
@@ -169,11 +213,11 @@ export class SearchForm extends LitElement {
 
       .search-form__input {
         border-bottom-width: 1px;
-        border-color: rgb(243 244 246);
+        border-color: var(--color-form-divider);
         padding: 0.625rem 1rem;
         position: sticky;
         top: 0;
-        background-color: #fff;
+        background-color: var(--color-form-input-bg);
       }
 
       .search-form__input input {
@@ -184,6 +228,12 @@ export class SearchForm extends LitElement {
         border: none;
         font-size: 1rem;
         line-height: 1.5rem;
+        background-color: var(--color-form-input-bg);
+        color: var(--color-form-input);
+      }
+
+      .search-form__input input::placeholder {
+        color: var(--color-form-input-placeholder);
       }
 
       .search-form__result {
@@ -197,7 +247,7 @@ export class SearchForm extends LitElement {
         justify-content: center;
         font-size: 0.875rem;
         line-height: 1.25rem;
-        color: rgb(107 114 128);
+        color: var(--color-result-empty);
       }
 
       .search-form__result-wrapper {
@@ -221,13 +271,13 @@ export class SearchForm extends LitElement {
         flex-direction: column;
         gap: 0.25rem;
         border-radius: 0.375rem;
-        background-color: rgb(249 250 251);
+        background-color: var(--color-result-item-bg);
         padding: 0.5rem 0.625rem;
       }
 
       .search-form__result-item:hover,
       .search-form__result-item.selected {
-        background-color: rgb(243 244 246);
+        background-color: var(--color-result-item-hover-bg);
       }
 
       .search-form__result-item-title {
@@ -236,19 +286,20 @@ export class SearchForm extends LitElement {
         font-weight: 600;
         padding: 0;
         margin: 0;
+        color: var(--color-result-item-title);
       }
 
       .search-form__result-item-content {
         font-size: 0.75rem;
         line-height: 1rem;
-        color: rgb(75 85 99);
+        color: var(--color-result-item-content);
         padding: 0;
         margin: 0;
       }
 
       .search-form__commands {
         border-top-width: 1px;
-        border-color: rgb(243 244 246);
+        border-color: var(--color-form-divider);
         padding: 0.625rem 1rem;
         display: flex;
         justify-content: flex-end;
@@ -263,16 +314,17 @@ export class SearchForm extends LitElement {
       .search-form__commands-item span {
         font-size: 0.75rem;
         line-height: 1rem;
-        color: rgb(75 85 99);
+        color: var(--color-command-kbd-item);
       }
 
       .search-form__commands-item kbd {
-        color: rgb(75 85 99);
+        color: var(--color-command-kbd-item);
         font-size: 10px;
         text-align: center;
         padding: 0.125rem 0.3rem;
         border-width: 1px;
         border-radius: 0.25rem;
+        border-color: var(--color-command-kbd-border);
         min-width: 1.25rem;
         margin-left: 0.3rem;
         box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);

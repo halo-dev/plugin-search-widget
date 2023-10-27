@@ -1,4 +1,5 @@
 import { SearchModal } from '@halo-dev/search-widget';
+import '@halo-dev/search-widget/var.css';
 
 export { SearchModal };
 
