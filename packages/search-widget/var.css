@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: dark) {
   .color-scheme-auto,
-  [data-theme='auto'] {
+  [data-color-scheme='auto'] {
     color-scheme: dark;
     --halo-search-widget-color-modal-layer: rgba(0, 0, 0, 0.8);
     --halo-search-widget-color-modal-content-bg: rgb(15 23 42);
@@ -20,7 +20,7 @@
 
 .color-scheme-dark,
 .dark,
-[data-theme='dark'] {
+[data-color-scheme='dark'] {
   color-scheme: dark;
   --halo-search-widget-color-modal-layer: rgba(0, 0, 0, 0.8);
   --halo-search-widget-color-modal-content-bg: rgb(15 23 42);
