@@ -297,6 +297,10 @@ export class SearchForm extends LitElement {
         margin: 0;
       }
 
+      .search-form__result-item-content img {
+        width: 50%;
+      }
+
       .search-form__commands {
         border-top-width: 1px;
         border-color: var(--color-form-divider);
