@@ -156,6 +156,7 @@ halo:
    3. `light`：强制明亮模式。
 
 ### 适配字体和字号
+为了更好的调整搜索框的大小和字体以适配主题，提供了以下 CSS 变量：
 ```css
 --halo-search-widget-font-size-search-form-input:;                     /*输入框字体大小*/
 --halo-search-widget-line-height-search-form-input:;                   /*输入框行高*/
