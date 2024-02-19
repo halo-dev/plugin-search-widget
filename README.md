@@ -165,11 +165,11 @@ halo:
 --halo-search-widget-line-height-search-form-result-item-content:;     /*搜索结果项内容行高*/
 --halo-search-widget-font-size-search-form-empty:;                     /*搜索结果为空时的字体大小*/
 --halo-search-widget-line-height-search-form-empty:;                   /*搜索结果为空时的行高*/
---halo-search-widget-font-size-search-form-commands-item :;            /*搜索框底部快捷键提示字体大小*/
---halo-search-widget-line-height-search-commands-item: ;               /*搜索框底部快捷键提示行高*/
+--halo-search-widget-font-size-search-form-commands-item:;            /*搜索框底部快捷键提示字体大小*/
+--halo-search-widget-line-height-search-commands-item:;               /*搜索框底部快捷键提示行高*/
 --halo-search-widget-font-size-search-form-commands-item-kbd:;         /*搜索框底部快捷键提示图标大小*/ 
 --halo-search-widget-min-width-search-commands-item-kbd:;              /*搜索框底部快捷键提示图标 min-wight*/
---halo-search-widget-font-family-search-form: ;                        /*搜索框字体*/
+--halo-search-widget-font-family-search-form:;                        /*搜索框字体*/
 ```
 适配主题字体示例：
 ```css
