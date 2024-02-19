@@ -155,47 +155,107 @@ export class SearchForm extends LitElement {
     resetStyles,
     css`
       :host {
-        --color-form-input-bg: var(
-          --halo-search-widget-color-form-input-bg,
-          #fff
+          --color-form-input-bg: var(
+                  --halo-search-widget-color-form-input-bg,
+                  #fff
+          );
+          --color-form-input: var(--halo-search-widget-color-form-input, #333);
+          --color-form-input-placeholder: var(
+                  --halo-search-widget-color-form-input-placeholder,
+                  rgb(107 114 128)
+          );
+          --color-form-divider: var(
+                  --halo-search-widget-color-form-divider,
+                  rgb(243 244 246)
+          );
+          --color-result-empty: var(
+                  --halo-search-widget-color-result-empty,
+                  rgb(107 114 128)
+          );
+          --color-result-item-bg: var(
+                  --halo-search-widget-color-result-item-bg,
+                  rgb(249 250 251)
+          );
+          --color-result-item-hover-bg: var(
+                  --halo-search-widget-color-result-item-hover-bg,
+                  rgb(243 244 246)
+          );
+          --color-result-item-title: var(
+                  --halo-search-widget-color-result-item-title,
+                  #333
+          );
+          --color-result-item-content: var(
+                  --halo-search-widget-color-result-item-content,
+                  rgb(75, 85, 99)
+          );
+          --color-command-kbd-item: var(
+                  --halo-search-widget-color-command-kbd-item,
+                  #333
+          );
+          --color-command-kbd-border: var(
+                  --halo-search-widget-color-command-kbd-border,
+                  #e5e7eb
+          );
+          --font-size-search-form-input: var(
+                  --halo-search-widget-font-size-search-form-input,
+                  1rem
+          );
+          --line-height-search-form-input: var(
+                  --halo-search-widget-line-height-search-form-input,
+                  1.5rem
+          );
+          --font-size-search-form-result-item-title: var(
+                  --halo-search-widget-font-size-search-form-result-item-title,
+                  0.875rem
+          );
+          --line-height-search-form-result-item-title: var(
+                  --halo-search-widget-line-height-search-form-result-item-title,
+                  1.25rem
+          );
+          --font-size-search-form-result-item-content: var(
+                  --halo-search-widget-font-size-search-form-result-item-content,
+                  0.75rem
+          );
+          --line-height-search-form-result-item-content: var(
+                  --halo-search-widget-line-height-search-form-result-item-content,
+                  1rem
+          );
+          --font-size-search-form-empty: var(
+                  --halo-search-widget-font-size-search-form-empty,
+                  0.875rem
+          );
+          --line-height-search-form-empty: var(
+                  --halo-search-widget-line-height-search-form-empty,
+                  1.25rem
+          );
+          --font-size-search-form-loading: var(
+                  --halo-search-widget-font-size-search-form-loading,
+                  0.875rem
+          );
+          --line-height-search-form-loading: var(
+                  --halo-search-widget-line-height-search-form-loading,
+                  1.25rem
+          );
+          --font-size-search-form-commands-item: var(
+                  --halo-search-widget-font-size-search-form-commands-item,
+                  0.75rem
+          );
+          --line-height-search-form-commands-item: var(
+                  --halo-search-widget-line-height-search-commands-item,
+                  1rem
+          );
+        --font-size-search-form-commands-item-kbd: var(
+                  --halo-search-widget-font-size-search-form-commands-item-kbd,
+                  10px
         );
-        --color-form-input: var(--halo-search-widget-color-form-input, #333);
-        --color-form-input-placeholder: var(
-          --halo-search-widget-color-form-input-placeholder,
-          rgb(107 114 128)
+        --min-width-search-form-commands-item-kbd: var(
+                  --halo-search-widget-min-width-search-commands-item-kbd,
+                  1.25rem
         );
-        --color-form-divider: var(
-          --halo-search-widget-color-form-divider,
-          rgb(243 244 246)
-        );
-        --color-result-empty: var(
-          --halo-search-widget-color-result-empty,
-          rgb(107 114 128)
-        );
-        --color-result-item-bg: var(
-          --halo-search-widget-color-result-item-bg,
-          rgb(249 250 251)
-        );
-        --color-result-item-hover-bg: var(
-          --halo-search-widget-color-result-item-hover-bg,
-          rgb(243 244 246)
-        );
-        --color-result-item-title: var(
-          --halo-search-widget-color-result-item-title,
-          #333
-        );
-        --color-result-item-content: var(
-          --halo-search-widget-color-result-item-content,
-          rgb(75, 85, 99)
-        );
-        --color-command-kbd-item: var(
-          --halo-search-widget-color-command-kbd-item,
-          #333
-        );
-        --color-command-kbd-border: var(
-          --halo-search-widget-color-command-kbd-border,
-          #e5e7eb
-        );
+          --font-family-custom-sreach-form: var(
+                  --halo-search-widget-font-family-search-form,
+                  custom-font
+          );
       }
 
       :host * {
@@ -203,7 +263,7 @@ export class SearchForm extends LitElement {
         border-width: 0;
         border-style: solid;
         border-color: #e5e7eb;
-        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        font-family: var(--font-family-custom-sreach-form), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
           'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,
           'Noto Color Emoji';
@@ -226,8 +286,8 @@ export class SearchForm extends LitElement {
         outline: 2px solid transparent;
         outline-offset: 2px;
         border: none;
-        font-size: 1rem;
-        line-height: 1.5rem;
+        font-size: var(--font-size-search-form-input);
+        line-height: var(--line-height-search-form-input);
         background-color: var(--color-form-input-bg);
         color: var(--color-form-input);
       }
@@ -245,8 +305,8 @@ export class SearchForm extends LitElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+        font-size: var(--font-size-search-form-empty);
+        line-height: var(--line-height-search-form-empty);
         color: var(--color-result-empty);
       }
 
@@ -281,8 +341,8 @@ export class SearchForm extends LitElement {
       }
 
       .search-form__result-item-title {
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+        font-size: var(--font-size-search-form-result-item-title);
+        line-height: var(--line-height-search-form-result-item-title);
         font-weight: 600;
         padding: 0;
         margin: 0;
@@ -290,8 +350,8 @@ export class SearchForm extends LitElement {
       }
 
       .search-form__result-item-content {
-        font-size: 0.75rem;
-        line-height: 1rem;
+        font-size: var(--font-size-search-form-result-item-content);
+        line-height: var(--line-height-search-form-result-item-content);
         color: var(--color-result-item-content);
         padding: 0;
         margin: 0;
@@ -316,20 +376,20 @@ export class SearchForm extends LitElement {
       }
 
       .search-form__commands-item span {
-        font-size: 0.75rem;
-        line-height: 1rem;
+        font-size: var(--font-size-search-form-commands-item);
+        line-height: var(--line-height-search-form-commands-item);
         color: var(--color-command-kbd-item);
       }
 
       .search-form__commands-item kbd {
         color: var(--color-command-kbd-item);
-        font-size: 10px;
+        font-size: var(--font-size-search-form-commands-item-kbd);
         text-align: center;
         padding: 0.125rem 0.3rem;
         border-width: 1px;
         border-radius: 0.25rem;
         border-color: var(--color-command-kbd-border);
-        min-width: 1.25rem;
+        min-width: var(--min-width-search-form-commands-item-kbd);
         margin-left: 0.3rem;
         box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
       }
