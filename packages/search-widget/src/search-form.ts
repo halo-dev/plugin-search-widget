@@ -155,107 +155,107 @@ export class SearchForm extends LitElement {
     resetStyles,
     css`
       :host {
-          --color-form-input-bg: var(
-                  --halo-search-widget-color-form-input-bg,
-                  #fff
-          );
-          --color-form-input: var(--halo-search-widget-color-form-input, #333);
-          --color-form-input-placeholder: var(
-                  --halo-search-widget-color-form-input-placeholder,
-                  rgb(107 114 128)
-          );
-          --color-form-divider: var(
-                  --halo-search-widget-color-form-divider,
-                  rgb(243 244 246)
-          );
-          --color-result-empty: var(
-                  --halo-search-widget-color-result-empty,
-                  rgb(107 114 128)
-          );
-          --color-result-item-bg: var(
-                  --halo-search-widget-color-result-item-bg,
-                  rgb(249 250 251)
-          );
-          --color-result-item-hover-bg: var(
-                  --halo-search-widget-color-result-item-hover-bg,
-                  rgb(243 244 246)
-          );
-          --color-result-item-title: var(
-                  --halo-search-widget-color-result-item-title,
-                  #333
-          );
-          --color-result-item-content: var(
-                  --halo-search-widget-color-result-item-content,
-                  rgb(75, 85, 99)
-          );
-          --color-command-kbd-item: var(
-                  --halo-search-widget-color-command-kbd-item,
-                  #333
-          );
-          --color-command-kbd-border: var(
-                  --halo-search-widget-color-command-kbd-border,
-                  #e5e7eb
-          );
-          --font-size-search-form-input: var(
-                  --halo-search-widget-font-size-search-form-input,
-                  1rem
-          );
-          --line-height-search-form-input: var(
-                  --halo-search-widget-line-height-search-form-input,
-                  1.5rem
-          );
-          --font-size-search-form-result-item-title: var(
-                  --halo-search-widget-font-size-search-form-result-item-title,
-                  0.875rem
-          );
-          --line-height-search-form-result-item-title: var(
-                  --halo-search-widget-line-height-search-form-result-item-title,
-                  1.25rem
-          );
-          --font-size-search-form-result-item-content: var(
-                  --halo-search-widget-font-size-search-form-result-item-content,
-                  0.75rem
-          );
-          --line-height-search-form-result-item-content: var(
-                  --halo-search-widget-line-height-search-form-result-item-content,
-                  1rem
-          );
-          --font-size-search-form-empty: var(
-                  --halo-search-widget-font-size-search-form-empty,
-                  0.875rem
-          );
-          --line-height-search-form-empty: var(
-                  --halo-search-widget-line-height-search-form-empty,
-                  1.25rem
-          );
-          --font-size-search-form-loading: var(
-                  --halo-search-widget-font-size-search-form-loading,
-                  0.875rem
-          );
-          --line-height-search-form-loading: var(
-                  --halo-search-widget-line-height-search-form-loading,
-                  1.25rem
-          );
-          --font-size-search-form-commands-item: var(
-                  --halo-search-widget-font-size-search-form-commands-item,
-                  0.75rem
-          );
-          --line-height-search-form-commands-item: var(
-                  --halo-search-widget-line-height-search-commands-item,
-                  1rem
-          );
+        --color-form-input-bg: var(
+          --halo-search-widget-color-form-input-bg,
+          #fff
+        );
+        --color-form-input: var(--halo-search-widget-color-form-input, #333);
+        --color-form-input-placeholder: var(
+          --halo-search-widget-color-form-input-placeholder,
+          rgb(107 114 128)
+        );
+        --color-form-divider: var(
+          --halo-search-widget-color-form-divider,
+          rgb(243 244 246)
+        );
+        --color-result-empty: var(
+          --halo-search-widget-color-result-empty,
+          rgb(107 114 128)
+        );
+        --color-result-item-bg: var(
+          --halo-search-widget-color-result-item-bg,
+          rgb(249 250 251)
+        );
+        --color-result-item-hover-bg: var(
+          --halo-search-widget-color-result-item-hover-bg,
+          rgb(243 244 246)
+        );
+        --color-result-item-title: var(
+          --halo-search-widget-color-result-item-title,
+          #333
+        );
+        --color-result-item-content: var(
+          --halo-search-widget-color-result-item-content,
+          rgb(75, 85, 99)
+        );
+        --color-command-kbd-item: var(
+          --halo-search-widget-color-command-kbd-item,
+          #333
+        );
+        --color-command-kbd-border: var(
+          --halo-search-widget-color-command-kbd-border,
+          #e5e7eb
+        );
+        --font-size-search-form-input: var(
+          --halo-search-widget-font-size-search-form-input,
+          1rem
+        );
+        --line-height-search-form-input: var(
+          --halo-search-widget-line-height-search-form-input,
+          1.5rem
+        );
+        --font-size-search-form-result-item-title: var(
+          --halo-search-widget-font-size-search-form-result-item-title,
+          0.875rem
+        );
+        --line-height-search-form-result-item-title: var(
+          --halo-search-widget-line-height-search-form-result-item-title,
+          1.25rem
+        );
+        --font-size-search-form-result-item-content: var(
+          --halo-search-widget-font-size-search-form-result-item-content,
+          0.75rem
+        );
+        --line-height-search-form-result-item-content: var(
+          --halo-search-widget-line-height-search-form-result-item-content,
+          1rem
+        );
+        --font-size-search-form-empty: var(
+          --halo-search-widget-font-size-search-form-empty,
+          0.875rem
+        );
+        --line-height-search-form-empty: var(
+          --halo-search-widget-line-height-search-form-empty,
+          1.25rem
+        );
+        --font-size-search-form-loading: var(
+          --halo-search-widget-font-size-search-form-loading,
+          0.875rem
+        );
+        --line-height-search-form-loading: var(
+          --halo-search-widget-line-height-search-form-loading,
+          1.25rem
+        );
+        --font-size-search-form-commands-item: var(
+          --halo-search-widget-font-size-search-form-commands-item,
+          0.75rem
+        );
+        --line-height-search-form-commands-item: var(
+          --halo-search-widget-line-height-search-commands-item,
+          1rem
+        );
         --font-size-search-form-commands-item-kbd: var(
-                  --halo-search-widget-font-size-search-form-commands-item-kbd,
-                  10px
+          --halo-search-widget-font-size-search-form-commands-item-kbd,
+          10px
         );
         --min-width-search-form-commands-item-kbd: var(
-                  --halo-search-widget-min-width-search-commands-item-kbd,
-                  1.25rem
+          --halo-search-widget-min-width-search-commands-item-kbd,
+          1.25rem
         );
-          --font-family-custom-sreach-form: var(
-                  --halo-search-widget-font-family-search-form,
-                  custom-font
-          );
+        --font-family-custom-sreach-form: var(
+          --halo-search-widget-font-family-search-form,
+          custom-font
+        );
       }
 
       :host * {
@@ -263,10 +263,10 @@ export class SearchForm extends LitElement {
         border-width: 0;
         border-style: solid;
         border-color: #e5e7eb;
-        font-family: var(--font-family-custom-sreach-form), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-          'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol,
-          'Noto Color Emoji';
+        font-family: var(--font-family-custom-sreach-form), ui-sans-serif,
+          system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+          Helvetica Neue, Arial, Noto Sans, sans-serif, 'Apple Color Emoji',
+          'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
         font-feature-settings: normal;
         font-variation-settings: normal;
       }
