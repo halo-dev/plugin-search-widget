@@ -6,7 +6,8 @@ import { debounce } from 'lodash-es';
 import type { DebouncedFunc } from 'lodash-es';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { classMap } from 'lit/directives/class-map.js';
-import resetStyles from './styles/reset';
+import baseStyles from './styles/base';
+import varStyles from './styles/var';
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -152,129 +153,13 @@ export class SearchForm extends LitElement {
   };
 
   static override styles = [
-    resetStyles,
+    varStyles,
+    baseStyles,
     css`
-      :host {
-        --color-form-input-bg: var(
-          --halo-search-widget-color-form-input-bg,
-          #fff
-        );
-        --color-form-input: var(--halo-search-widget-color-form-input, #333);
-        --color-form-input-placeholder: var(
-          --halo-search-widget-color-form-input-placeholder,
-          rgb(107 114 128)
-        );
-        --color-form-divider: var(
-          --halo-search-widget-color-form-divider,
-          rgb(243 244 246)
-        );
-        --color-result-empty: var(
-          --halo-search-widget-color-result-empty,
-          rgb(107 114 128)
-        );
-        --color-result-item-bg: var(
-          --halo-search-widget-color-result-item-bg,
-          rgb(249 250 251)
-        );
-        --color-result-item-hover-bg: var(
-          --halo-search-widget-color-result-item-hover-bg,
-          rgb(243 244 246)
-        );
-        --color-result-item-title: var(
-          --halo-search-widget-color-result-item-title,
-          #333
-        );
-        --color-result-item-content: var(
-          --halo-search-widget-color-result-item-content,
-          rgb(75, 85, 99)
-        );
-        --color-command-kbd-item: var(
-          --halo-search-widget-color-command-kbd-item,
-          #333
-        );
-        --color-command-kbd-border: var(
-          --halo-search-widget-color-command-kbd-border,
-          #e5e7eb
-        );
-        --font-size-search-form-input: var(
-          --halo-search-widget-font-size-search-form-input,
-          1rem
-        );
-        --line-height-search-form-input: var(
-          --halo-search-widget-line-height-search-form-input,
-          1.5rem
-        );
-        --font-size-search-form-result-item-title: var(
-          --halo-search-widget-font-size-search-form-result-item-title,
-          0.875rem
-        );
-        --line-height-search-form-result-item-title: var(
-          --halo-search-widget-line-height-search-form-result-item-title,
-          1.25rem
-        );
-        --font-size-search-form-result-item-content: var(
-          --halo-search-widget-font-size-search-form-result-item-content,
-          0.75rem
-        );
-        --line-height-search-form-result-item-content: var(
-          --halo-search-widget-line-height-search-form-result-item-content,
-          1rem
-        );
-        --font-size-search-form-empty: var(
-          --halo-search-widget-font-size-search-form-empty,
-          0.875rem
-        );
-        --line-height-search-form-empty: var(
-          --halo-search-widget-line-height-search-form-empty,
-          1.25rem
-        );
-        --font-size-search-form-loading: var(
-          --halo-search-widget-font-size-search-form-loading,
-          0.875rem
-        );
-        --line-height-search-form-loading: var(
-          --halo-search-widget-line-height-search-form-loading,
-          1.25rem
-        );
-        --font-size-search-form-commands-item: var(
-          --halo-search-widget-font-size-search-form-commands-item,
-          0.75rem
-        );
-        --line-height-search-form-commands-item: var(
-          --halo-search-widget-line-height-search-commands-item,
-          1rem
-        );
-        --font-size-search-form-commands-item-kbd: var(
-          --halo-search-widget-font-size-search-form-commands-item-kbd,
-          10px
-        );
-        --min-width-search-form-commands-item-kbd: var(
-          --halo-search-widget-min-width-search-commands-item-kbd,
-          1.25rem
-        );
-        --font-family-custom-sreach-form: var(
-          --halo-search-widget-font-family-search-form,
-          custom-font
-        );
-      }
-
-      :host * {
-        box-sizing: border-box;
-        border-width: 0;
-        border-style: solid;
-        border-color: #e5e7eb;
-        font-family: var(--font-family-custom-sreach-form), ui-sans-serif,
-          system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-          Helvetica Neue, Arial, Noto Sans, sans-serif, 'Apple Color Emoji',
-          'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
-        font-feature-settings: normal;
-        font-variation-settings: normal;
-      }
-
       .search-form__input {
         border-bottom-width: 1px;
         border-color: var(--color-form-divider);
-        padding: 0.625rem 1rem;
+        padding: 0.625em 1em;
         position: sticky;
         top: 0;
         background-color: var(--color-form-input-bg);
@@ -282,12 +167,12 @@ export class SearchForm extends LitElement {
 
       .search-form__input input {
         width: 100%;
-        padding: 0.25rem 0px;
+        padding: 0.25em 0px;
         outline: 2px solid transparent;
         outline-offset: 2px;
         border: none;
-        font-size: var(--font-size-search-form-input);
-        line-height: var(--line-height-search-form-input);
+        font-size: 1em;
+        line-height: 1.5em;
         background-color: var(--color-form-input-bg);
         color: var(--color-form-input);
       }
@@ -297,7 +182,7 @@ export class SearchForm extends LitElement {
       }
 
       .search-form__result {
-        padding: 0.625rem 0.5rem;
+        padding: 0.625em 0.5em;
       }
 
       .search-form__empty,
@@ -305,8 +190,8 @@ export class SearchForm extends LitElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: var(--font-size-search-form-empty);
-        line-height: var(--line-height-search-form-empty);
+        font-size: 0.875em;
+        line-height: 1.25em;
         color: var(--color-result-empty);
       }
 
@@ -316,7 +201,7 @@ export class SearchForm extends LitElement {
         width: 100%;
         height: 100%;
         flex-direction: column;
-        gap: 0.25rem;
+        gap: 0.25em;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -329,10 +214,10 @@ export class SearchForm extends LitElement {
       .search-form__result-item {
         display: flex;
         flex-direction: column;
-        gap: 0.25rem;
-        border-radius: 0.375rem;
+        gap: 0.25em;
+        border-radius: 0.375em;
         background-color: var(--color-result-item-bg);
-        padding: 0.5rem 0.625rem;
+        padding: 0.5em 0.625em;
       }
 
       .search-form__result-item:hover,
@@ -341,8 +226,8 @@ export class SearchForm extends LitElement {
       }
 
       .search-form__result-item-title {
-        font-size: var(--font-size-search-form-result-item-title);
-        line-height: var(--line-height-search-form-result-item-title);
+        font-size: 0.875em;
+        line-height: 1.25em;
         font-weight: 600;
         padding: 0;
         margin: 0;
@@ -350,8 +235,8 @@ export class SearchForm extends LitElement {
       }
 
       .search-form__result-item-content {
-        font-size: var(--font-size-search-form-result-item-content);
-        line-height: var(--line-height-search-form-result-item-content);
+        font-size: 0.75em;
+        line-height: 1em;
         color: var(--color-result-item-content);
         padding: 0;
         margin: 0;
@@ -364,7 +249,7 @@ export class SearchForm extends LitElement {
       .search-form__commands {
         border-top-width: 1px;
         border-color: var(--color-form-divider);
-        padding: 0.625rem 1rem;
+        padding: 0.625em 1em;
         display: flex;
         justify-content: flex-end;
       }
@@ -372,25 +257,25 @@ export class SearchForm extends LitElement {
       .search-form__commands-item {
         display: inline-flex;
         align-items: center;
-        margin-left: 1.25rem;
+        margin-left: 1.25em;
       }
 
       .search-form__commands-item span {
-        font-size: var(--font-size-search-form-commands-item);
-        line-height: var(--line-height-search-form-commands-item);
+        font-size: 0.75em;
+        line-height: 1em;
         color: var(--color-command-kbd-item);
       }
 
       .search-form__commands-item kbd {
         color: var(--color-command-kbd-item);
-        font-size: var(--font-size-search-form-commands-item-kbd);
+        font-size: 10px;
         text-align: center;
-        padding: 0.125rem 0.3rem;
+        padding: 0.125em 0.3em;
         border-width: 1px;
-        border-radius: 0.25rem;
+        border-radius: 0.25em;
         border-color: var(--color-command-kbd-border);
-        min-width: var(--min-width-search-form-commands-item-kbd);
-        margin-left: 0.3rem;
+        min-width: 1.25em;
+        margin-left: 0.3em;
         box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
       }
     `,

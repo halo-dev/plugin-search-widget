@@ -62,49 +62,62 @@ halo:
 
 其中，`pluginFinder.available('PluginSearchWidget')` 的作用是判断使用者是否安装和启用了此插件，如果没有安装或者没有启用，那么就不会显示搜索入口。
 
-### 适配配色
+### 自定义样式
 
-目前，此插件为了让主题更好的适配颜色，对外暴露了以下 CSS 变量：
+虽然目前不能直接为搜索组件编写额外的样式，但可以通过一系列的 CSS 变量来自定义部分样式，开发者可以根据需求自行在主题中添加这些 CSS 变量，让搜索组件和主题更好地融合。
 
-```css
---halo-search-widget-color-modal-layer: ;             /* 搜索弹框遮罩层颜色 */
---halo-search-widget-color-modal-content-bg: ;        /* 搜索弹框内容区域背景色 */
---halo-search-widget-color-form-input: ;              /* 搜索框输入框字体颜色 */
---halo-search-widget-color-form-input-placeholder: ;  /* 搜索框输入框占位符颜色 */
---halo-search-widget-color-form-input-bg: ;           /* 搜索框输入框背景色 */
---halo-search-widget-color-form-divider: ;            /* 搜索框分割线颜色 */
---halo-search-widget-color-result-item-bg: ;          /* 搜索结果项背景色 */
---halo-search-widget-color-result-item-hover-bg: ;    /* 搜索结果项鼠标悬浮背景色 */
---halo-search-widget-color-result-item-title: ;       /* 搜索结果项标题颜色 */
---halo-search-widget-color-result-item-content: ;     /* 搜索结果项内容颜色 */
---halo-search-widget-color-command-kbd-item: ;        /* 搜索结果项快捷键提示字体颜色 */
---halo-search-widget-color-command-kbd-border: ;      /* 搜索结果项快捷键提示边框颜色 */
---halo-search-widget-color-result-empty: ;            /* 搜索结果为空时的颜色 */
-```
+目前已提供的 CSS 变量：
 
-主题可以利用这些 CSS 变量来适配主题的配色，或者用于适配暗黑模式。
+| 变量名                                              | 描述               |
+| --------------------------------------------------- | ------------------ |
+| `--halo-search-widget-base-font-size`               | 基础字体大小       |
+| `--halo-search-widget-base-border-radius`           | 基础元素的圆角     |
+| `--halo-search-widget-base-font-family`             | 基础字体族         |
+| `--halo-search-widget-color-modal-layer`            | 模态层颜色         |
+| `--halo-search-widget-color-modal-content-bg`       | 模态内容背景颜色   |
+| `--halo-search-widget-color-form-input-bg`          | 表单输入背景颜色   |
+| `--halo-search-widget-color-form-input`             | 表单输入文字颜色   |
+| `--halo-search-widget-color-form-input-placeholder` | 表单输入占位符颜色 |
+| `--halo-search-widget-color-form-divider`           | 表单分隔线颜色     |
+| `--halo-search-widget-color-result-empty`           | 无结果提示颜色     |
+| `--halo-search-widget-color-result-item-bg`         | 结果项背景颜色     |
+| `--halo-search-widget-color-result-item-hover-bg`   | 结果项悬停背景颜色 |
+| `--halo-search-widget-color-result-item-title`      | 结果项标题颜色     |
+| `--halo-search-widget-color-result-item-content`    | 结果项内容颜色     |
+| `--halo-search-widget-color-command-kbd-item`       | 命令键盘项颜色     |
+| `--halo-search-widget-color-command-kbd-border`     | 命令键盘边框颜色   |
 
-适配主题配色示例：
+<details>
+<summary>点击查看 CSS 代码模板</summary>
 
 ```css
 :root {
-  --halo-search-widget-color-modal-layer: rgb(107 114 128 / 0.75);
-  --halo-search-widget-color-modal-content-bg: #fff;
-  --halo-search-widget-color-form-input: #000;
-  --halo-search-widget-color-form-input-placeholder: #999;
-  --halo-search-widget-color-form-input-bg: #fff;
-  --halo-search-widget-color-form-divider: #eaeaea;
-  --halo-search-widget-color-result-item-bg: #fff;
-  --halo-search-widget-color-result-item-hover-bg: #f5f5f5;
-  --halo-search-widget-color-result-item-title: #000;
-  --halo-search-widget-color-result-item-content: #999;
-  --halo-search-widget-color-command-kbd-item: #fff;
-  --halo-search-widget-color-command-kbd-border: #fff;
-  --halo-search-widget-color-result-empty: #999;
+   --halo-search-widget-base-font-size: ;
+   --halo-search-widget-base-border-radius: ;
+   --halo-search-widget-base-font-family: ;
+   --halo-search-widget-color-modal-layer: ;
+   --halo-search-widget-color-modal-content-bg: ;
+   --halo-search-widget-color-form-input-bg: ;
+   --halo-search-widget-color-form-input: ;
+   --halo-search-widget-color-form-input-placeholder: ;
+   --halo-search-widget-color-form-divider: ;
+   --halo-search-widget-color-result-empty: ;
+   --halo-search-widget-color-result-item-bg: ;
+   --halo-search-widget-color-result-item-hover-bg: ;
+   --halo-search-widget-color-result-item-title: ;
+   --halo-search-widget-color-result-item-content: ;
+   --halo-search-widget-color-command-kbd-item: ;
+   --halo-search-widget-color-command-kbd-border: ;
 }
 ```
 
-适配暗黑模式切换示例：
+</details>
+
+### 配色切换方案
+
+根据上面提供的 CSS 变量，也可以通过定义 CSS 变量的方式为搜索组件提供动态切换配色的功能。
+
+以下是实现示例，你可以根据需求自行修改选择器或者媒体查询。
 
 ```css
 @media (prefers-color-scheme: dark) {
@@ -154,34 +167,3 @@ halo:
    1. `auto`：自动模式，根据系统的暗黑模式自动切换。
    2. `dark`：强制暗黑模式。
    3. `light`：强制明亮模式。
-
-### 适配字体和字号
-为了更好的调整搜索框的大小和字体以适配主题，提供了以下 CSS 变量：
-```css
---halo-search-widget-font-size-search-form-input:;                     /*输入框字体大小*/
---halo-search-widget-line-height-search-form-input:;                   /*输入框行高*/
---halo-search-widget-font-size-search-form-result-item-title:;         /*搜索结果项标题字体大小*/
---halo-search-widget-line-height-search-form-result-item-title:;       /*搜索结果项标题行高*/
---halo-search-widget-font-size-search-form-result-item-content:;       /*搜索结果项内容字体大小*/
---halo-search-widget-line-height-search-form-result-item-content:;     /*搜索结果项内容行高*/
---halo-search-widget-font-size-search-form-empty:;                     /*搜索结果为空时的字体大小*/
---halo-search-widget-line-height-search-form-empty:;                   /*搜索结果为空时的行高*/
---halo-search-widget-font-size-search-form-commands-item:;             /*搜索框底部快捷键提示字体大小*/
---halo-search-widget-line-height-search-commands-item:;                /*搜索框底部快捷键提示行高*/
---halo-search-widget-font-size-search-form-commands-item-kbd:;         /*搜索框底部快捷键提示图标大小*/ 
---halo-search-widget-min-width-search-commands-item-kbd:;              /*搜索框底部快捷键提示图标 min-wight*/
---halo-search-widget-font-family-search-form:;                         /*搜索框字体*/
-```
-适配主题字体示例：
-```css
-@font-face {
-            font-family: "custom-font2";
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-            src: url("/upload/AlimamaDaoLiTi.woff2") format("woff2");
-        }
-html body {
-    --halo-search-widget-font-family-search-form: "custom-font2";
-}
-```
