@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-const resetStyles = css`
+const baseStyles = css`
   *,
   ::before,
   ::after {
@@ -11,13 +11,27 @@ const resetStyles = css`
   }
 
   :host {
-    line-height: 1.5;
+    font-size: var(--halo-search-widget-base-font-size, 1rem);
+    font-family: var(
+      --base-font-family,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Helvetica Neue,
+      Arial,
+      Noto Sans,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      Segoe UI Symbol,
+      'Noto Color Emoji'
+    );
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
     tab-size: 4;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
     font-feature-settings: normal;
     font-variation-settings: normal;
   }
@@ -26,10 +40,6 @@ const resetStyles = css`
     height: 0;
     color: inherit;
     border-top-width: 1px;
-  }
-
-  abbr:where([title]) {
-    text-decoration: underline dotted;
   }
 
   h1,
@@ -149,4 +159,4 @@ const resetStyles = css`
   }
 `;
 
-export default resetStyles;
+export default baseStyles;
