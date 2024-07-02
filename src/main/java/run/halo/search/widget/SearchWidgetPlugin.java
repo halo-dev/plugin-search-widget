@@ -1,8 +1,8 @@
 package run.halo.search.widget;
 
-import org.pf4j.PluginWrapper;
 import org.springframework.stereotype.Component;
 import run.halo.app.plugin.BasePlugin;
+import run.halo.app.plugin.PluginContext;
 
 /**
  * @author ryanwang
@@ -10,8 +10,8 @@ import run.halo.app.plugin.BasePlugin;
 @Component
 public class SearchWidgetPlugin extends BasePlugin {
 
-    public SearchWidgetPlugin(PluginWrapper wrapper) {
-        super(wrapper);
+    public SearchWidgetPlugin(PluginContext pluginContext) {
+        super(pluginContext);
     }
 
     @Override
