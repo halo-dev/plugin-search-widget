@@ -1,11 +1,11 @@
-import { LitElement, html, css, PropertyValueMap } from 'lit';
+import { HaloDocument, SearchOption, SearchResult } from '@halo-dev/api-client';
+import { LitElement, PropertyValueMap, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { Ref, createRef, ref } from 'lit/directives/ref.js';
-import type { Hit, Result } from './type';
-import { debounce } from 'lodash-es';
-import type { DebouncedFunc } from 'lodash-es';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { Ref, createRef, ref } from 'lit/directives/ref.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import type { DebouncedFunc } from 'lodash-es';
+import { debounce } from 'lodash-es';
 import baseStyles from './styles/base';
 import varStyles from './styles/var';
 
@@ -20,7 +20,7 @@ export class SearchForm extends LitElement {
   baseUrl = '';
 
   @state()
-  private hits: Hit[] = [];
+  private searchResult?: SearchResult;
 
   @state()
   private loading: boolean = false;
@@ -43,7 +43,7 @@ export class SearchForm extends LitElement {
         />
       </div>
       <div class="search-form__result">
-        ${!this.loading && this.hits.length === 0
+        ${!this.loading && this.searchResult?.hits?.length === 0
           ? html`<div class="search-form__empty">
               <span>没有搜索结果</span>
             </div>`
@@ -52,7 +52,7 @@ export class SearchForm extends LitElement {
           ? html`<div class="search-form__loading"><span>搜索中...</span></div>`
           : html`
               <ul class="search-form__result-wrapper" role="list">
-                ${this.hits.map(
+                ${this.searchResult?.hits?.map(
                   (hit, index) =>
                     html`<li @click="${() => this.handleOpenLink(hit)}">
                       <div
@@ -107,7 +107,7 @@ export class SearchForm extends LitElement {
     this.selectedIndex = 0;
 
     if (value === '') {
-      this.hits = [];
+      this.searchResult = undefined;
       return;
     }
 
@@ -117,17 +117,37 @@ export class SearchForm extends LitElement {
 
   fetchHits: DebouncedFunc<(keyword: string) => Promise<void>> = debounce(
     async (keyword: string) => {
+      const options: SearchOption = {
+        annotations: {},
+        highlightPostTag: '</mark>',
+        highlightPreTag: '<mark>',
+        includeCategoryNames: [],
+        includeOwnerNames: [],
+        includeTagNames: [],
+        includeTypes: ['post'],
+        keyword,
+        limit: 20,
+      };
+
       const response = await fetch(
-        `${this.baseUrl}/apis/api.halo.run/v1alpha1/indices/post?keyword=${keyword}&highlightPreTag=%3Cmark%3E&highlightPostTag=%3C/mark%3E`
+        `/apis/api.halo.run/v1alpha1/indices/-/search?keyword=${keyword}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(options),
+          method: 'post',
+        }
       );
-      const data = (await response.json()) as Result;
-      this.hits = data.hits || [];
+
+      const data = (await response.json()) as SearchResult;
+      this.searchResult = data;
       this.loading = false;
     },
     300
   );
 
-  handleOpenLink(hit: Hit) {
+  handleOpenLink(hit: HaloDocument) {
     window.location.href = hit.permalink;
   }
 
@@ -140,12 +160,15 @@ export class SearchForm extends LitElement {
     }
 
     if (key === 'ArrowDown' || (key === 'j' && ctrlKey)) {
-      this.selectedIndex = Math.min(this.hits.length, this.selectedIndex + 1);
+      this.selectedIndex = Math.min(
+        this.searchResult?.hits?.length || 0,
+        this.selectedIndex + 1
+      );
       e.preventDefault();
     }
 
     if (key === 'Enter') {
-      const hit = this.hits[this.selectedIndex - 1];
+      const hit = this.searchResult?.hits?.[this.selectedIndex - 1];
       if (hit) {
         this.handleOpenLink(hit);
       }
