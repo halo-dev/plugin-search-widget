@@ -119,9 +119,6 @@ export class SearchForm extends LitElement {
     async (keyword: string) => {
       const options: SearchOption = {
         annotations: {},
-        filterExposed: true,
-        filterPublished: true,
-        filterRecycled: false,
         highlightPostTag: '</mark>',
         highlightPreTag: '<mark>',
         includeCategoryNames: [],
