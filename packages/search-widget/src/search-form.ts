@@ -65,7 +65,7 @@ export class SearchForm extends LitElement {
                           ${unsafeHTML(hit.title)}
                         </h2>
                         <p class="search-form__result-item-content">
-                          ${unsafeHTML(hit.description)}
+                          ${unsafeHTML(hit.content)}
                         </p>
                       </div>
                     </li>`
