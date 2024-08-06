@@ -15,6 +15,9 @@ export class SearchModal extends LitElement {
   @property({ type: String })
   baseUrl = '';
 
+  @property({ type: Object })
+  options = {};
+
   override render() {
     return html`<div
       class="modal__wrapper"
@@ -23,7 +26,10 @@ export class SearchModal extends LitElement {
       <div class="modal__layer" @click="${this.close}"></div>
       <div class="modal__content">
         ${this.open
-          ? html`<search-form baseUrl=${this.baseUrl}></search-form>`
+          ? html`<search-form
+              .baseUrl=${this.baseUrl}
+              .options=${this.options}
+            ></search-form>`
           : ''}
       </div>
     </div>`;
