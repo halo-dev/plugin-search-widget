@@ -1,12 +1,12 @@
 import { HaloDocument, SearchOption, SearchResult } from '@halo-dev/api-client';
-import { LitElement, PropertyValueMap, css, html } from 'lit';
+import resetStyles from '@unocss/reset/tailwind.css?inline';
+import { LitElement, PropertyValueMap, css, html, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { DebouncedFunc } from 'lodash-es';
 import { debounce } from 'lodash-es';
-import baseStyles from './styles/base';
 import varStyles from './styles/var';
 
 @customElement('search-form')
@@ -124,7 +124,7 @@ export class SearchForm extends LitElement {
         includeCategoryNames: [],
         includeOwnerNames: [],
         includeTagNames: [],
-        includeTypes: ['post'],
+        includeTypes: [],
         keyword,
         limit: 20,
       };
@@ -176,9 +176,11 @@ export class SearchForm extends LitElement {
   };
 
   static override styles = [
+    unsafeCSS(resetStyles),
     varStyles,
-    baseStyles,
     css`
+      @unocss-placeholder;
+
       .search-form__input {
         border-bottom-width: 1px;
         border-color: var(--color-form-divider);

@@ -1,9 +1,10 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, css, html, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import './search-form';
 import varStyles from './styles/var';
 import baseStyles from './styles/base';
+import resetStyles from '@unocss/reset/tailwind.css?inline';
 
 @customElement('search-modal')
 export class SearchModal extends LitElement {
@@ -53,9 +54,10 @@ export class SearchModal extends LitElement {
   }
 
   static override styles = [
+    unsafeCSS(resetStyles),
     varStyles,
-    baseStyles,
     css`
+      @unocss-placeholder;
       .modal__wrapper {
         position: fixed;
         left: 0px;
