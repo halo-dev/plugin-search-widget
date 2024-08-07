@@ -1,8 +1,8 @@
 plugins {
     id 'java'
     id "io.freefair.lombok" version "8.0.1"
-    id "com.github.node-gradle.node" version "5.0.0"
-    id "run.halo.plugin.devtools" version "0.0.7"
+    id "com.github.node-gradle.node" version "7.0.2"
+    id "run.halo.plugin.devtools" version "0.1.1"
 }
 
 group 'run.halo.search.widget'
