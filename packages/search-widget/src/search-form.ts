@@ -2,7 +2,6 @@ import { HaloDocument, SearchOption, SearchResult } from '@halo-dev/api-client';
 import resetStyles from '@unocss/reset/tailwind.css?inline';
 import { LitElement, PropertyValueMap, css, html, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { DebouncedFunc } from 'lodash-es';
@@ -36,48 +35,70 @@ export class SearchForm extends LitElement {
 
   override render() {
     return html`
-      <div class="search-form__input">
-        <input
-          @input="${this.onInput}"
-          placeholder="输入关键词以搜索"
-          autocomplete="off"
-          autocorrect="off"
-          spellcheck="false"
-          ${ref(this.inputRef)}
-        />
+      <div class="p-3 bg-gray-100 sticky top-0 border-b">
+        <form
+          class="flex items-center ring-2 h-12 rounded-md px-2.5 ring-primary bg-white"
+        >
+          <span
+            class="shrink flex-none size-6 text-primary ${this.loading
+              ? 'i-lucide-loader-circle animate-spin'
+              : 'i-lucide-search'}"
+          ></span>
+          <input
+            @input="${this.onInput}"
+            placeholder="输入关键词以搜索"
+            autocomplete="off"
+            spellcheck="false"
+            ${ref(this.inputRef)}
+            class="flex-1 min-w-0 outline-none h-full px-2.5 bg-transparent"
+          />
+          <span
+            class="flex-none shrink i-lucide-right size-6 text-primary"
+          ></span>
+        </form>
       </div>
-      <div class="search-form__result">
+      <div class="search-form__result p-3 h-full">
         ${!this.loading && this.searchResult?.hits?.length === 0
           ? html`<div class="search-form__empty">
               <span>没有搜索结果</span>
             </div>`
           : ''}
-        ${this.loading
-          ? html`<div class="search-form__loading"><span>搜索中...</span></div>`
-          : html`
-              <ul class="search-form__result-wrapper" role="list">
-                ${this.searchResult?.hits?.map(
-                  (hit, index) =>
-                    html`<li @click="${() => this.handleOpenLink(hit)}">
-                      <div
-                        class="${classMap({
-                          'search-form__result-item': true,
-                          selected: index === this.selectedIndex - 1,
-                        })}"
+        <ul class="search-form__result-wrapper space-y-1.5" role="list">
+          ${this.searchResult?.hits?.map(
+            (hit, index) =>
+              html`<li
+                @click="${() => this.handleOpenLink(hit)}"
+                @mouseenter=${() => (this.selectedIndex = index)}
+                class="search-form__result-item rounded cursor-pointer space-y-1 p-3 bg-white [&>*>mark]:text-primary [&>*>mark]:font-semibold [&>*>mark]:bg-transparent ${index ===
+                this.selectedIndex
+                  ? '!bg-primary [&>*>mark]:!text-white [&>*>mark]:underline'
+                  : ''}"
+              >
+                <h2
+                  class="search-form__result-item-title text-sm font-medium ${this
+                    .selectedIndex === index
+                    ? 'text-white'
+                    : 'text-zinc-900'}"
+                >
+                  ${unsafeHTML(hit.title)}
+                </h2>
+                ${hit.description
+                  ? html`
+                      <p
+                        class="search-form__result-item-content text-xs ${this
+                          .selectedIndex === index
+                          ? 'text-white/90'
+                          : 'text-zinc-600'}"
                       >
-                        <h2 class="search-form__result-item-title">
-                          ${unsafeHTML(hit.title)}
-                        </h2>
-                        <p class="search-form__result-item-content">
-                          ${unsafeHTML(hit.content)}
-                        </p>
-                      </div>
-                    </li>`
-                )}
-              </ul>
-            `}
+                        ${unsafeHTML(hit.description)}
+                      </p>
+                    `
+                  : ''}
+              </li>`
+          )}
+        </ul>
       </div>
-      <div class="search-form__commands">
+      <div class="search-form__commands p-3 bg-white sticky bottom-0">
         <div class="search-form__commands-item">
           <span>选择</span>
           <kbd> ↑ </kbd>
@@ -181,37 +202,7 @@ export class SearchForm extends LitElement {
     css`
       @unocss-placeholder;
 
-      .search-form__input {
-        border-bottom-width: 1px;
-        border-color: var(--color-form-divider);
-        padding: 0.625em 1em;
-        position: sticky;
-        top: 0;
-        background-color: var(--color-form-input-bg);
-      }
-
-      .search-form__input input {
-        width: 100%;
-        padding: 0.25em 0px;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        border: none;
-        font-size: 1em;
-        line-height: 1.5em;
-        background-color: var(--color-form-input-bg);
-        color: var(--color-form-input);
-      }
-
-      .search-form__input input::placeholder {
-        color: var(--color-form-input-placeholder);
-      }
-
-      .search-form__result {
-        padding: 0.625em 0.5em;
-      }
-
-      .search-form__empty,
-      .search-form__loading {
+      .search-form__empty {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -220,61 +211,24 @@ export class SearchForm extends LitElement {
         color: var(--color-result-empty);
       }
 
-      .search-form__result-wrapper {
-        box-sizing: border-box;
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
-        gap: 0.25em;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .search-form__result-wrapper li {
-        cursor: pointer;
-      }
-
       .search-form__result-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25em;
-        border-radius: 0.375em;
-        background-color: var(--color-result-item-bg);
-        padding: 0.5em 0.625em;
       }
 
-      .search-form__result-item:hover,
       .search-form__result-item.selected {
-        background-color: var(--color-result-item-hover-bg);
       }
 
       .search-form__result-item-title {
-        font-size: 0.875em;
-        line-height: 1.25em;
-        font-weight: 600;
-        padding: 0;
-        margin: 0;
-        color: var(--color-result-item-title);
       }
 
       .search-form__result-item-content {
-        font-size: 0.75em;
-        line-height: 1em;
-        color: var(--color-result-item-content);
-        padding: 0;
-        margin: 0;
       }
 
       .search-form__result-item-content img {
-        width: 50%;
       }
 
       .search-form__commands {
         border-top-width: 1px;
         border-color: var(--color-form-divider);
-        padding: 0.625em 1em;
         display: flex;
         justify-content: flex-end;
       }

@@ -1,10 +1,9 @@
+import resetStyles from '@unocss/reset/tailwind.css?inline';
 import { LitElement, css, html, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import './search-form';
 import varStyles from './styles/var';
-import baseStyles from './styles/base';
-import resetStyles from '@unocss/reset/tailwind.css?inline';
 
 @customElement('search-modal')
 export class SearchModal extends LitElement {
@@ -25,7 +24,7 @@ export class SearchModal extends LitElement {
       style="${styleMap({ display: this.open ? 'flex' : 'none' })}"
     >
       <div class="modal__layer" @click="${this.close}"></div>
-      <div class="modal__content">
+      <div class="modal__content shadow-lg bg-zinc-100">
         ${this.open
           ? html`<search-form
               .baseUrl=${this.baseUrl}
@@ -63,7 +62,6 @@ export class SearchModal extends LitElement {
     unsafeCSS(resetStyles),
     varStyles,
     css`
-      @unocss-placeholder;
       .modal__wrapper {
         position: fixed;
         left: 0px;
@@ -74,8 +72,8 @@ export class SearchModal extends LitElement {
         flex-direction: row;
         align-items: flex-start;
         justify-content: center;
-        padding-top: 2.5em;
-        padding-bottom: 2.5em;
+        padding-top: 3em;
+        padding-bottom: 3em;
         z-index: 999;
       }
 
@@ -99,7 +97,7 @@ export class SearchModal extends LitElement {
         align-items: stretch;
         width: calc(100vw - 20px);
         max-height: calc(100vh - 5em);
-        max-width: 650px;
+        max-width: 580px;
         overflow: auto;
         animation: fadeInUp 0.3s both;
       }
@@ -125,6 +123,8 @@ export class SearchModal extends LitElement {
           transform: translate3d(0, 0, 0);
         }
       }
+
+      @unocss-placeholder;
     `,
   ];
 }
