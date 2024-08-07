@@ -11,13 +11,11 @@ import varStyles from './styles/var';
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
-  constructor() {
-    super();
-    this.addEventListener('keydown', this.handleKeydown);
-  }
-
   @property({ type: String })
   baseUrl = '';
+
+  @property({ type: Object })
+  options = {};
 
   @state()
   private searchResult?: SearchResult;
@@ -29,6 +27,12 @@ export class SearchForm extends LitElement {
   private selectedIndex = 0;
 
   inputRef: Ref<HTMLInputElement> = createRef<HTMLInputElement>();
+
+  constructor() {
+    super();
+
+    this.addEventListener('keydown', this.handleKeydown);
+  }
 
   override render() {
     return html`
@@ -117,25 +121,21 @@ export class SearchForm extends LitElement {
 
   fetchHits: DebouncedFunc<(keyword: string) => Promise<void>> = debounce(
     async (keyword: string) => {
-      const options: SearchOption = {
-        annotations: {},
+      const searchOptions: SearchOption = {
+        ...this.options,
         highlightPostTag: '</mark>',
         highlightPreTag: '<mark>',
-        includeCategoryNames: [],
-        includeOwnerNames: [],
-        includeTagNames: [],
-        includeTypes: [],
         keyword,
         limit: 20,
       };
 
       const response = await fetch(
-        `/apis/api.halo.run/v1alpha1/indices/-/search?keyword=${keyword}`,
+        `/apis/api.halo.run/v1alpha1/indices/-/search`,
         {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(options),
+          body: JSON.stringify(searchOptions),
           method: 'post',
         }
       );
