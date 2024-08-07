@@ -5,7 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import overlayscrollbarsStyles from 'overlayscrollbars/styles/overlayscrollbars.css?inline';
 import './search-form';
-import varStyles from './styles/var';
+import baseStyles from './styles/base';
 
 @customElement('search-modal')
 export class SearchModal extends LitElement {
@@ -46,7 +46,7 @@ export class SearchModal extends LitElement {
       <div class="modal__layer" @click="${this.close}"></div>
       <div
         data-overlayscrollbars-initialize
-        class="modal__content shadow-xl bg-zinc-100"
+        class="modal__content shadow-xl bg-modal"
       >
         ${this.open
           ? html`<search-form
@@ -84,7 +84,7 @@ export class SearchModal extends LitElement {
   static override styles = [
     unsafeCSS(resetStyles),
     unsafeCSS(overlayscrollbarsStyles),
-    varStyles,
+    baseStyles,
     css`
       .modal__wrapper {
         position: fixed;
@@ -102,19 +102,21 @@ export class SearchModal extends LitElement {
       }
 
       .modal__layer {
+        background-color: var(
+          --halo-search-widget-modal-layer-color,
+          rgb(107 114 128 / 0.75)
+        );
         position: absolute;
         top: 0px;
         left: 0px;
         height: 100%;
         width: 100%;
         flex: none;
-        background-color: var(--color-modal-layer);
         animation: fadeIn 0.15s both;
       }
 
       .modal__content {
-        border-radius: var(--base-border-radius);
-        background-color: var(--color-modal-content-bg);
+        border-radius: var(--halo-search-widget-base-rounded, 0.4em);
         position: relative;
         display: flex;
         flex-direction: column;

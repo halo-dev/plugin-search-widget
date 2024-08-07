@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build:packages": "pnpm --filter \"./packages/**\" build",
-    "example:dev": "pnpm --filter \"./packages/example\" dev",
+    "example:dev": "pnpm --filter \"./packages/search-widget\" dev",
     "release:packages": "pnpm --filter \"./packages/**\" release"
   },
   "devDependencies": {

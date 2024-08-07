@@ -5,9 +5,24 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { DebouncedFunc, debounce, uniqBy } from 'lodash-es';
-import varStyles from './styles/var';
+import baseStyles from './styles/base';
 
 const HISTORY_KEY = 'halo:search-widgets:history:hits';
+
+const SHORTCUT_HELP_LIST = [
+  {
+    text: '选择',
+    kbdIcons: ['i-lucide-arrow-up', 'i-lucide-arrow-down'],
+  },
+  {
+    text: '确认',
+    kbdIcons: ['i-lucide-corner-down-left'],
+  },
+  {
+    text: '关闭',
+    kbdIcons: ['i-mdi-keyboard-esc'],
+  },
+];
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -50,9 +65,9 @@ export class SearchForm extends LitElement {
 
   override render() {
     return html`
-      <div class="p-3 z-1 bg-gray-100 sticky top-0 border-b">
+      <div class="p-3 z-1 bg-base sticky top-0 border-b border-divider">
         <form
-          class="flex items-center ring-2 h-12 rounded-md px-2.5 ring-primary bg-white"
+          class="flex items-center ring-2 h-12 rounded-base px-2.5 ring-primary bg-base"
         >
           <span
             class="shrink flex-none size-6 text-primary ${this.loading
@@ -65,7 +80,7 @@ export class SearchForm extends LitElement {
             autocomplete="off"
             spellcheck="false"
             ${ref(this.inputRef)}
-            class="flex-1 min-w-0 outline-none h-full px-2.5 bg-transparent"
+            class="flex-1 min-w-0 outline-none text-content h-full px-2.5 bg-transparent"
           />
           <span
             class="flex-none shrink i-lucide-right size-6 text-primary"
@@ -76,39 +91,26 @@ export class SearchForm extends LitElement {
       ${this.keyword ? this.renderItems() : this.renderHistoryItems()}
 
       <div
-        class="border-t search-form__commands p-3 bg-white sticky bottom-0 space-x-5 flex justify-end"
+        class="border-t border-divider search-form__commands p-3 bg-base sticky bottom-0 space-x-5 flex justify-end"
       >
-        <div class="search-form__commands-item flex items-center space-x-1.5">
-          <kbd
-            class="inline-flex justify-center items-center py-1 px-1.5 bg-white border border-gray-200 font-mono text-sm text-gray-800 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
-          >
-            <i class="i-lucide-arrow-up"></i>
-          </kbd>
-          <kbd
-            class="inline-flex justify-center items-center py-1 px-1.5 bg-white border border-gray-200 font-mono text-sm text-gray-800 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
-          >
-            <i class="i-lucide-arrow-down"></i>
-          </kbd>
-          <span class="text-xs">选择</span>
-        </div>
-
-        <div class="search-form__commands-item flex items-center space-x-1.5">
-          <kbd
-            class="inline-flex justify-center items-center py-1 px-1.5 bg-white border border-gray-200 font-mono text-sm text-gray-800 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
-          >
-            <i class="i-lucide-corner-down-left"></i>
-          </kbd>
-          <span class="text-xs">确认</span>
-        </div>
-
-        <div class="search-form__commands-item flex items-center space-x-1.5">
-          <kbd
-            class="inline-flex justify-center items-center py-1 px-1.5 bg-white border border-gray-200 font-mono text-sm text-gray-800 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
-          >
-            <i class="i-mdi-keyboard-esc text-base"></i>
-          </kbd>
-          <span class="text-xs">关闭</span>
-        </div>
+        ${SHORTCUT_HELP_LIST.map(
+          (item) => html`
+            <div
+              class="search-form__commands-item flex items-center space-x-1.5"
+            >
+              ${item.kbdIcons.map(
+                (icon) => html`
+                  <kbd
+                    class="inline-flex justify-center items-center py-1 px-1.5 bg-base border border-kbd font-mono text-sm text-content rounded-base shadow-kbd"
+                  >
+                    <i class="${icon}"></i>
+                  </kbd>
+                `
+              )}
+              <span class="text-xs text-muted">${item.text}</span>
+            </div>
+          `
+        )}
       </div>
     `;
   }
@@ -126,7 +128,7 @@ export class SearchForm extends LitElement {
 
   renderEmpty() {
     return html`<div
-      class="search-form__empty flex py-4 justify-center text-sm text-zinc-600"
+      class="search-form__empty flex py-4 justify-center text-sm text-muted"
     >
       <span>没有搜索结果</span>
     </div>`;
@@ -137,9 +139,9 @@ export class SearchForm extends LitElement {
       <div class="search-form__result p-3">
         ${this.historyHits.length
           ? html`<div class="flex justify-between items-center">
-                <h3 class="text-sm font-medium text-zinc-600">搜索历史</h3>
+                <h3 class="text-sm font-medium text-primary">搜索历史</h3>
                 <span
-                  class="text-xs cursor-pointer text-zinc-500 hover:text-zinc-900"
+                  class="text-xs cursor-pointer text-muted hover:text-content"
                   @click=${this.handleClearHistory}
                 >
                   清除历史
@@ -163,7 +165,7 @@ export class SearchForm extends LitElement {
       <li
         @click="${() => this.handleOpenLink(hit)}"
         @mouseenter=${() => (this.selectedIndex = index)}
-        class="search-form__result-item shadow-sm flex items-center space-x-3 rounded cursor-pointer p-3 bg-white [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${index ===
+        class="search-form__result-item shadow-sm flex items-center space-x-3 rounded-base cursor-pointer p-3 bg-hit [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${index ===
         this.selectedIndex
           ? '!bg-primary [&_mark]:!text-white [&_mark]:underline'
           : ''}"
@@ -172,14 +174,14 @@ export class SearchForm extends LitElement {
         <span
           class="flex-none shrink ${listIcon} ${this.selectedIndex === index
             ? 'text-white'
-            : 'text-zinc-500'}"
+            : 'text-muted'}"
         ></span>
         <div class="flex-1 space-y-1 min-w-0">
           <h2
             class="search-form__result-item-title text-sm font-medium ${this
               .selectedIndex === index
               ? 'text-white'
-              : 'text-zinc-900'}"
+              : 'text-content'}"
           >
             ${unsafeHTML(hit.title)}
           </h2>
@@ -189,7 +191,7 @@ export class SearchForm extends LitElement {
                   class="search-form__result-item-content text-xs ${this
                     .selectedIndex === index
                     ? 'text-white/90'
-                    : 'text-zinc-600'}"
+                    : 'text-muted'}"
                 >
                   ${unsafeHTML(hit.description)}
                 </p>
@@ -312,18 +314,9 @@ export class SearchForm extends LitElement {
 
   static override styles = [
     unsafeCSS(resetStyles),
-    varStyles,
+    baseStyles,
     css`
       @unocss-placeholder;
-
-      .search-form__empty {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.875em;
-        line-height: 1.25em;
-        color: var(--color-result-empty);
-      }
 
       .search-form__result-item {
       }

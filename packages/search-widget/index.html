@@ -13,8 +13,17 @@
         padding: 2rem;
       }
 
-      :root {
-        /* color-scheme: dark; */
+      .dark search-modal {
+        color-scheme: dark;
+        --halo-search-widget-muted-color: #cbd5e1;
+        --halo-search-widget-content-color: #f1f5f9;
+        --halo-search-widget-hit-bg-color: #090a11;
+        --halo-search-widget-modal-bg-color: #15172a;
+        --halo-search-widget-modal-layer-color: #000000cc;
+        --halo-search-widget-base-bg-color: #090a11;
+        --halo-search-widget-divider-color: #1e293b;
+        --halo-search-widget-kbd-border-color: #334155;
+        --halo-search-widget-kbd-shadow: 0px 2px 0px 0px #ffffff1a;
       }
 
       body > * {
@@ -24,6 +33,7 @@
   </head>
   <body>
     <button>启动</button>
+    <button id="color">暗色/亮色</button>
     <search-modal></search-modal>
   </body>
   <script>
@@ -32,6 +42,11 @@
 
     button.addEventListener('click', () => {
       searchModal.open = !searchModal.open;
+    });
+
+    const color = document.getElementById('color');
+    color.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
     });
   </script>
 </html>

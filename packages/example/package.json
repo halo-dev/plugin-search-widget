@@ -1,8 +1,0 @@
-{
-  "scripts": {
-    "dev": "vite"
-  },
-  "dependencies": {
-    "@halo-dev/search-widget": "workspace:*"
-  }
-}
