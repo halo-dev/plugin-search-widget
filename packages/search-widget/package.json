@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "lit": "^3.2.0",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "overlayscrollbars": "^2.10.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.234",

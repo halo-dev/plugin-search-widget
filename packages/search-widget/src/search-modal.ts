@@ -2,6 +2,8 @@ import resetStyles from '@unocss/reset/tailwind.css?inline';
 import { LitElement, css, html, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { OverlayScrollbars } from 'overlayscrollbars';
+import overlayscrollbarsStyles from 'overlayscrollbars/styles/overlayscrollbars.css?inline';
 import './search-form';
 import varStyles from './styles/var';
 
@@ -18,13 +20,34 @@ export class SearchModal extends LitElement {
   @property({ type: Object })
   options = {};
 
+  constructor() {
+    super();
+
+    setTimeout(() => {
+      const modalContent = this.shadowRoot?.querySelector(
+        '.modal__content'
+      ) as HTMLElement;
+      if (modalContent) {
+        OverlayScrollbars(modalContent, {
+          scrollbars: {
+            autoHide: 'scroll',
+            autoHideDelay: 600,
+          },
+        });
+      }
+    }, 0);
+  }
+
   override render() {
     return html`<div
       class="modal__wrapper"
       style="${styleMap({ display: this.open ? 'flex' : 'none' })}"
     >
       <div class="modal__layer" @click="${this.close}"></div>
-      <div class="modal__content shadow-lg bg-zinc-100">
+      <div
+        data-overlayscrollbars-initialize
+        class="modal__content shadow-xl bg-zinc-100"
+      >
         ${this.open
           ? html`<search-form
               .baseUrl=${this.baseUrl}
@@ -60,6 +83,7 @@ export class SearchModal extends LitElement {
 
   static override styles = [
     unsafeCSS(resetStyles),
+    unsafeCSS(overlayscrollbarsStyles),
     varStyles,
     css`
       .modal__wrapper {

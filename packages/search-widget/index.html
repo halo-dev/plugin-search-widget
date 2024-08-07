@@ -14,7 +14,7 @@
       }
 
       :root {
-        <!-- color-scheme: dark; -->
+        /* color-scheme: dark; */
       }
 
       body > * {
@@ -23,6 +23,15 @@
     </style>
   </head>
   <body>
-    <search-modal open></search-modal>
+    <button>启动</button>
+    <search-modal></search-modal>
   </body>
+  <script>
+    const button = document.querySelector('button');
+    const searchModal = document.querySelector('search-modal');
+
+    button.addEventListener('click', () => {
+      searchModal.open = !searchModal.open;
+    });
+  </script>
 </html>

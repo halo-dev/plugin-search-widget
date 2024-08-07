@@ -50,6 +50,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      overlayscrollbars:
+        specifier: ^2.10.0
+        version: 2.10.0
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.234
@@ -1922,6 +1925,9 @@ packages:
   optionator@0.9.3:
     resolution: {integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==}
     engines: {node: '>= 0.8.0'}
+
+  overlayscrollbars@2.10.0:
+    resolution: {integrity: sha512-diNMeEafWTE0A4GJfwRpdBp2rE/BEvrhptBdBcDu8/UeytWcdCy9Td8tZWnztJeJ26f8/uHCWfPnPUC/dtgJdw==}
 
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -4451,6 +4457,8 @@ snapshots:
       levn: 0.4.1
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  overlayscrollbars@2.10.0: {}
 
   p-limit@2.3.0:
     dependencies:
