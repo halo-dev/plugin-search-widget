@@ -86,6 +86,19 @@ export class SearchModal extends LitElement {
     unsafeCSS(overlayscrollbarsStyles),
     baseStyles,
     css`
+      :host {
+        // @deprecated --halo-search-widget-color-modal-layer and
+        // --halo-search-widget-base-border-radius will be removed in future
+        --base-rounded: var(
+          --halo-search-widget-base-rounded,
+          var(--halo-search-widget-base-border-radius, 0.4em)
+        );
+        --modal-layer-color: var(
+          --halo-search-widget-modal-layer-color,
+          var(--halo-search-widget-color-modal-layer, rgb(107 114 128 / 0.75))
+        );
+      }
+
       .modal__wrapper {
         position: fixed;
         left: 0px;
@@ -102,10 +115,7 @@ export class SearchModal extends LitElement {
       }
 
       .modal__layer {
-        background-color: var(
-          --halo-search-widget-modal-layer-color,
-          rgb(107 114 128 / 0.75)
-        );
+        background-color: var(--modal-layer-color, rgb(107 114 128 / 0.75));
         position: absolute;
         top: 0px;
         left: 0px;
@@ -116,7 +126,7 @@ export class SearchModal extends LitElement {
       }
 
       .modal__content {
-        border-radius: var(--halo-search-widget-base-rounded, 0.4em);
+        border-radius: var(--base-rounded, 0.4em);
         position: relative;
         display: flex;
         flex-direction: column;

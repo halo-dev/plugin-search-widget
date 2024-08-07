@@ -5,24 +5,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { DebouncedFunc, debounce, uniqBy } from 'lodash-es';
+import {
+  HISTORY_KEY,
+  MAX_HISTORY_ITEMS,
+  SHORTCUT_HELP_LIST,
+} from './constants';
 import baseStyles from './styles/base';
-
-const HISTORY_KEY = 'halo:search-widgets:history:hits';
-
-const SHORTCUT_HELP_LIST = [
-  {
-    text: '选择',
-    kbdIcons: ['i-lucide-arrow-up', 'i-lucide-arrow-down'],
-  },
-  {
-    text: '确认',
-    kbdIcons: ['i-lucide-corner-down-left'],
-  },
-  {
-    text: '关闭',
-    kbdIcons: ['i-mdi-keyboard-esc'],
-  },
-];
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -82,22 +70,25 @@ export class SearchForm extends LitElement {
             ${ref(this.inputRef)}
             class="flex-1 min-w-0 outline-none text-content h-full px-2.5 bg-transparent"
           />
-          <span
-            class="flex-none shrink i-lucide-right size-6 text-primary"
-          ></span>
+          ${this.keyword
+            ? html`
+                <span
+                  @click=${this.handleClearInput}
+                  class="flex-none cursor-pointer shrink i-lucide-x size-5 text-muted hover:text-content"
+                ></span>
+              `
+            : ''}
         </form>
       </div>
 
       ${this.keyword ? this.renderItems() : this.renderHistoryItems()}
 
       <div
-        class="border-t border-divider search-form__commands p-3 bg-base sticky bottom-0 space-x-5 flex justify-end"
+        class="border-t border-divider p-3 bg-base sticky bottom-0 space-x-5 flex justify-end"
       >
         ${SHORTCUT_HELP_LIST.map(
           (item) => html`
-            <div
-              class="search-form__commands-item flex items-center space-x-1.5"
-            >
+            <div class="flex items-center space-x-1.5">
               ${item.kbdIcons.map(
                 (icon) => html`
                   <kbd
@@ -115,10 +106,17 @@ export class SearchForm extends LitElement {
     `;
   }
 
+  handleClearInput() {
+    this.keyword = '';
+    this.searchResult = undefined;
+    this.inputRef.value!.value = '';
+    this.inputRef.value!.focus();
+  }
+
   renderItems() {
-    return html`<div class="search-form__result p-3">
+    return html`<div class="p-3">
       ${!this.searchResult?.hits?.length ? this.renderEmpty() : ''}
-      <ul class="search-form__result-wrapper space-y-1.5" role="list">
+      <ul class="space-y-1.5" role="list">
         ${this.searchResult?.hits?.map((hit, index) =>
           this.renderListItem(hit, index, 'i-lucide-file-text')
         )}
@@ -127,16 +125,14 @@ export class SearchForm extends LitElement {
   }
 
   renderEmpty() {
-    return html`<div
-      class="search-form__empty flex py-4 justify-center text-sm text-muted"
-    >
+    return html`<div class="flex py-4 justify-center text-sm text-muted">
       <span>没有搜索结果</span>
     </div>`;
   }
 
   renderHistoryItems() {
     return html`
-      <div class="search-form__result p-3">
+      <div class="p-3">
         ${this.historyHits.length
           ? html`<div class="flex justify-between items-center">
                 <h3 class="text-sm font-medium text-primary">搜索历史</h3>
@@ -147,10 +143,7 @@ export class SearchForm extends LitElement {
                   清除历史
                 </span>
               </div>
-              <ul
-                class="search-form__result-wrapper mt-3 space-y-1.5"
-                role="list"
-              >
+              <ul class="mt-3 space-y-1.5" role="list">
                 ${this.historyHits?.map((hit, index) =>
                   this.renderListItem(hit, index, 'i-lucide-history')
                 )}
@@ -165,7 +158,7 @@ export class SearchForm extends LitElement {
       <li
         @click="${() => this.handleOpenLink(hit)}"
         @mouseenter=${() => (this.selectedIndex = index)}
-        class="search-form__result-item shadow-sm flex items-center space-x-3 rounded-base cursor-pointer p-3 bg-hit [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${index ===
+        class="shadow-sm flex items-center space-x-3 rounded-base cursor-pointer p-3 bg-hit [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${index ===
         this.selectedIndex
           ? '!bg-primary [&_mark]:!text-white [&_mark]:underline'
           : ''}"
@@ -178,8 +171,7 @@ export class SearchForm extends LitElement {
         ></span>
         <div class="flex-1 space-y-1 min-w-0">
           <h2
-            class="search-form__result-item-title text-sm font-medium ${this
-              .selectedIndex === index
+            class="text-sm font-medium ${this.selectedIndex === index
               ? 'text-white'
               : 'text-content'}"
           >
@@ -188,8 +180,7 @@ export class SearchForm extends LitElement {
           ${hit.description
             ? html`
                 <p
-                  class="search-form__result-item-content text-xs ${this
-                    .selectedIndex === index
+                  class="text-xs ${this.selectedIndex === index
                     ? 'text-white/90'
                     : 'text-muted'}"
                 >
@@ -259,15 +250,12 @@ export class SearchForm extends LitElement {
   );
 
   handleOpenLink(hit: HaloDocument) {
-    localStorage.setItem(
-      HISTORY_KEY,
-      JSON.stringify(uniqBy([hit, ...this.historyHits], 'id'))
+    const updatedHistory = uniqBy([hit, ...this.historyHits], 'id').slice(
+      0,
+      MAX_HISTORY_ITEMS
     );
-
-    this.historyHits = JSON.parse(
-      localStorage.getItem(HISTORY_KEY) || '[]'
-    ) as HaloDocument[];
-
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+    this.historyHits = updatedHistory;
     window.location.href = hit.permalink;
   }
 
@@ -317,27 +305,6 @@ export class SearchForm extends LitElement {
     baseStyles,
     css`
       @unocss-placeholder;
-
-      .search-form__result-item {
-      }
-
-      .search-form__result-item.selected {
-      }
-
-      .search-form__result-item-title {
-      }
-
-      .search-form__result-item-content {
-      }
-
-      .search-form__result-item-content img {
-      }
-
-      .search-form__commands-item {
-      }
-
-      .search-form__commands-item span {
-      }
     `,
   ];
 }
