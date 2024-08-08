@@ -1,12 +1,29 @@
 import {
   defineConfig,
+  definePreset,
   presetIcons,
   presetUno,
   transformerCompileClass,
   transformerDirectives,
 } from 'unocss';
+
+const remRE = /(-?[.\d]+)rem/g;
+
+const presetRemToEm = definePreset(() => {
+  return {
+    name: '@unocss/preset-rem-to-em',
+    postprocess: (util) => {
+      util.entries.forEach((i) => {
+        const value = i[1];
+        if (typeof value === 'string' && remRE.test(value))
+          i[1] = value.replace(remRE, (_, p1) => `${p1}em`);
+      });
+    },
+  };
+});
+
 export default defineConfig({
-  presets: [presetUno(), presetIcons()],
+  presets: [presetUno(), presetIcons(), presetRemToEm()],
   transformers: [transformerDirectives(), transformerCompileClass()],
   theme: {
     colors: {
