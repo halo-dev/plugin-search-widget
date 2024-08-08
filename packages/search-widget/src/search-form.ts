@@ -56,6 +56,7 @@ export class SearchForm extends LitElement {
       <div class="p-3 z-1 bg-base sticky top-0 border-b border-divider">
         <form
           class="flex items-center ring-2 h-12 rounded-base px-2.5 ring-primary bg-base"
+          @submit=${(e: Event) => e.preventDefault()}
         >
           <span
             class="shrink flex-none size-6 text-primary ${this.loading
