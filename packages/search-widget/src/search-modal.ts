@@ -1,5 +1,5 @@
 import resetStyles from '@unocss/reset/tailwind.css?inline';
-import { LitElement, css, html, unsafeCSS } from 'lit';
+import { LitElement, PropertyValues, css, html, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { OverlayScrollbars } from 'overlayscrollbars';
@@ -36,6 +36,18 @@ export class SearchModal extends LitElement {
         });
       }
     }, 0);
+  }
+
+  override willUpdate(changedProperties: PropertyValues) {
+    if (!changedProperties.has('open')) {
+      return;
+    }
+
+    if (this.open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.removeProperty('overflow');
+    }
   }
 
   override render() {
@@ -77,8 +89,8 @@ export class SearchModal extends LitElement {
   }
 
   override disconnectedCallback() {
-    window.removeEventListener('keydown', this.handleKeydown);
     super.disconnectedCallback();
+    window.removeEventListener('keydown', this.handleKeydown);
   }
 
   static override styles = [
