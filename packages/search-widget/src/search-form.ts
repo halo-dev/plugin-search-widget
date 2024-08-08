@@ -1,13 +1,16 @@
 import { HaloDocument, SearchOption, SearchResult } from '@halo-dev/api-client';
-import { LitElement, PropertyValueMap, css, html } from 'lit';
+import resetStyles from '@unocss/reset/tailwind.css?inline';
+import { LitElement, css, html, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import type { DebouncedFunc } from 'lodash-es';
-import { debounce } from 'lodash-es';
+import { DebouncedFunc, debounce, uniqBy } from 'lodash-es';
+import {
+  HISTORY_KEY,
+  MAX_HISTORY_ITEMS,
+  SHORTCUT_HELP_LIST,
+} from './constants';
 import baseStyles from './styles/base';
-import varStyles from './styles/var';
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -18,6 +21,9 @@ export class SearchForm extends LitElement {
   options = {};
 
   @state()
+  private keyword = '';
+
+  @state()
   private searchResult?: SearchResult;
 
   @state()
@@ -26,87 +32,178 @@ export class SearchForm extends LitElement {
   @state()
   private selectedIndex = 0;
 
+  @state()
+  private historyHits: HaloDocument[] = [];
+
   inputRef: Ref<HTMLInputElement> = createRef<HTMLInputElement>();
 
   constructor() {
     super();
 
     this.addEventListener('keydown', this.handleKeydown);
+
+    this.historyHits = JSON.parse(
+      localStorage.getItem(HISTORY_KEY) || '[]'
+    ) as HaloDocument[];
+
+    setTimeout(() => {
+      this.inputRef.value?.focus();
+    }, 0);
   }
 
   override render() {
     return html`
-      <div class="search-form__input">
-        <input
-          @input="${this.onInput}"
-          placeholder="输入关键词以搜索"
-          autocomplete="off"
-          autocorrect="off"
-          spellcheck="false"
-          ${ref(this.inputRef)}
-        />
+      <div class="p-3 z-1 bg-base sticky top-0 border-b border-divider">
+        <form
+          class="flex items-center ring-2 h-12 rounded-base px-2.5 ring-primary bg-base"
+        >
+          <span
+            class="shrink flex-none size-6 text-primary ${this.loading
+              ? 'i-lucide-loader-circle animate-spin'
+              : 'i-lucide-search'}"
+          ></span>
+          <input
+            @input="${this.onInput}"
+            placeholder="输入关键词以搜索"
+            autocomplete="off"
+            spellcheck="false"
+            ${ref(this.inputRef)}
+            class="flex-1 min-w-0 outline-none text-content h-full px-2.5 bg-transparent"
+          />
+          ${this.keyword
+            ? html`
+                <span
+                  @click=${this.handleClearInput}
+                  class="flex-none cursor-pointer shrink i-lucide-x size-5 text-muted hover:text-content"
+                ></span>
+              `
+            : ''}
+        </form>
       </div>
-      <div class="search-form__result">
-        ${!this.loading && this.searchResult?.hits?.length === 0
-          ? html`<div class="search-form__empty">
-              <span>没有搜索结果</span>
-            </div>`
-          : ''}
-        ${this.loading
-          ? html`<div class="search-form__loading"><span>搜索中...</span></div>`
-          : html`
-              <ul class="search-form__result-wrapper" role="list">
-                ${this.searchResult?.hits?.map(
-                  (hit, index) =>
-                    html`<li @click="${() => this.handleOpenLink(hit)}">
-                      <div
-                        class="${classMap({
-                          'search-form__result-item': true,
-                          selected: index === this.selectedIndex - 1,
-                        })}"
-                      >
-                        <h2 class="search-form__result-item-title">
-                          ${unsafeHTML(hit.title)}
-                        </h2>
-                        <p class="search-form__result-item-content">
-                          ${unsafeHTML(hit.content)}
-                        </p>
-                      </div>
-                    </li>`
-                )}
-              </ul>
-            `}
-      </div>
-      <div class="search-form__commands">
-        <div class="search-form__commands-item">
-          <span>选择</span>
-          <kbd> ↑ </kbd>
-          <kbd> ↓ </kbd>
-        </div>
 
-        <div class="search-form__commands-item">
-          <span>确认</span>
-          <kbd> Enter </kbd>
-        </div>
+      ${this.keyword ? this.renderItems() : this.renderHistoryItems()}
 
-        <div class="search-form__commands-item">
-          <span>关闭</span>
-          <kbd> Esc </kbd>
-        </div>
+      <div
+        class="border-t border-divider p-3 bg-base sticky bottom-0 space-x-5 flex justify-end"
+      >
+        ${SHORTCUT_HELP_LIST.map(
+          (item) => html`
+            <div class="flex items-center space-x-1.5">
+              ${item.kbdIcons.map(
+                (icon) => html`
+                  <kbd
+                    class="inline-flex justify-center items-center py-1 px-1.5 bg-base border border-kbd font-mono text-sm text-content rounded-base shadow-kbd"
+                  >
+                    <i class="${icon}"></i>
+                  </kbd>
+                `
+              )}
+              <span class="text-xs text-muted">${item.text}</span>
+            </div>
+          `
+        )}
       </div>
     `;
   }
 
-  protected override firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
-  ) {
-    super.firstUpdated(_changedProperties);
-    this.inputRef.value?.focus();
+  handleClearInput() {
+    this.keyword = '';
+    this.searchResult = undefined;
+    this.inputRef.value!.value = '';
+    this.inputRef.value!.focus();
+  }
+
+  renderItems() {
+    return html`<div class="p-3">
+      ${!this.searchResult?.hits?.length ? this.renderEmpty() : ''}
+      <ul class="space-y-1.5" role="list">
+        ${this.searchResult?.hits?.map((hit, index) =>
+          this.renderListItem(hit, index, 'i-lucide-file-text')
+        )}
+      </ul>
+    </div>`;
+  }
+
+  renderEmpty() {
+    return html`<div class="flex py-4 justify-center text-sm text-muted">
+      <span>没有搜索结果</span>
+    </div>`;
+  }
+
+  renderHistoryItems() {
+    return html`
+      <div class="p-3">
+        ${this.historyHits.length
+          ? html`<div class="flex justify-between items-center">
+                <h3 class="text-sm font-medium text-primary">搜索历史</h3>
+                <span
+                  class="text-xs cursor-pointer text-muted hover:text-content"
+                  @click=${this.handleClearHistory}
+                >
+                  清除历史
+                </span>
+              </div>
+              <ul class="mt-3 space-y-1.5" role="list">
+                ${this.historyHits?.map((hit, index) =>
+                  this.renderListItem(hit, index, 'i-lucide-history')
+                )}
+              </ul>`
+          : this.renderEmpty()}
+      </div>
+    `;
+  }
+
+  renderListItem(hit: HaloDocument, index: number, listIcon: string) {
+    return html`
+      <li
+        @click="${() => this.handleOpenLink(hit)}"
+        @mouseenter=${() => (this.selectedIndex = index)}
+        class="shadow-sm flex items-center space-x-3 rounded-base cursor-pointer p-3 bg-hit [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${index ===
+        this.selectedIndex
+          ? '!bg-primary [&_mark]:!text-white [&_mark]:underline'
+          : ''}"
+        data-index=${index}
+      >
+        <span
+          class="flex-none shrink ${listIcon} ${this.selectedIndex === index
+            ? 'text-white'
+            : 'text-muted'}"
+        ></span>
+        <div class="flex-1 space-y-1 min-w-0">
+          <h2
+            class="text-sm font-medium ${this.selectedIndex === index
+              ? 'text-white'
+              : 'text-content'}"
+          >
+            ${unsafeHTML(hit.title)}
+          </h2>
+          ${hit.description
+            ? html`
+                <p
+                  class="text-xs ${this.selectedIndex === index
+                    ? 'text-white/90'
+                    : 'text-muted'}"
+                >
+                  ${unsafeHTML(hit.description)}
+                </p>
+              `
+            : ''}
+        </div>
+        <span
+          class="i-lucide-corner-down-left flex-none shrink text-white invisible ${this
+            .selectedIndex === index
+            ? '!visible'
+            : ''}"
+        ></span>
+      </li>
+    `;
   }
 
   onInput(e: InputEvent) {
     const input = e.target as HTMLInputElement;
     const value = input.value;
+
+    this.keyword = value || '';
 
     this.selectedIndex = 0;
 
@@ -117,6 +214,11 @@ export class SearchForm extends LitElement {
 
     this.loading = true;
     this.fetchHits(value);
+  }
+
+  handleClearHistory() {
+    localStorage.removeItem(HISTORY_KEY);
+    this.historyHits = [];
   }
 
   fetchHits: DebouncedFunc<(keyword: string) => Promise<void>> = debounce(
@@ -148,159 +250,61 @@ export class SearchForm extends LitElement {
   );
 
   handleOpenLink(hit: HaloDocument) {
+    const updatedHistory = uniqBy([hit, ...this.historyHits], 'id').slice(
+      0,
+      MAX_HISTORY_ITEMS
+    );
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+    this.historyHits = updatedHistory;
     window.location.href = hit.permalink;
   }
 
   handleKeydown = (e: KeyboardEvent) => {
     const { key, ctrlKey } = e;
 
+    const hits = this.keyword ? this.searchResult?.hits : this.historyHits;
+
+    if (!hits) {
+      return;
+    }
+
     if (key === 'ArrowUp' || (key === 'k' && ctrlKey)) {
       this.selectedIndex = Math.max(0, this.selectedIndex - 1);
+      this.handleScrollIntoSelected();
       e.preventDefault();
     }
 
     if (key === 'ArrowDown' || (key === 'j' && ctrlKey)) {
-      this.selectedIndex = Math.min(
-        this.searchResult?.hits?.length || 0,
-        this.selectedIndex + 1
-      );
+      this.selectedIndex = Math.min(hits.length || 0, this.selectedIndex + 1);
+      this.handleScrollIntoSelected();
       e.preventDefault();
     }
 
     if (key === 'Enter') {
-      const hit = this.searchResult?.hits?.[this.selectedIndex - 1];
+      const hit = hits[this.selectedIndex];
       if (hit) {
         this.handleOpenLink(hit);
       }
     }
   };
 
+  handleScrollIntoSelected() {
+    const selectedElement = this.shadowRoot?.querySelector(
+      `[data-index="${this.selectedIndex}"]`
+    );
+    if (selectedElement) {
+      selectedElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }
+
   static override styles = [
-    varStyles,
+    unsafeCSS(resetStyles),
     baseStyles,
     css`
-      .search-form__input {
-        border-bottom-width: 1px;
-        border-color: var(--color-form-divider);
-        padding: 0.625em 1em;
-        position: sticky;
-        top: 0;
-        background-color: var(--color-form-input-bg);
-      }
-
-      .search-form__input input {
-        width: 100%;
-        padding: 0.25em 0px;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        border: none;
-        font-size: 1em;
-        line-height: 1.5em;
-        background-color: var(--color-form-input-bg);
-        color: var(--color-form-input);
-      }
-
-      .search-form__input input::placeholder {
-        color: var(--color-form-input-placeholder);
-      }
-
-      .search-form__result {
-        padding: 0.625em 0.5em;
-      }
-
-      .search-form__empty,
-      .search-form__loading {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.875em;
-        line-height: 1.25em;
-        color: var(--color-result-empty);
-      }
-
-      .search-form__result-wrapper {
-        box-sizing: border-box;
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
-        gap: 0.25em;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .search-form__result-wrapper li {
-        cursor: pointer;
-      }
-
-      .search-form__result-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25em;
-        border-radius: 0.375em;
-        background-color: var(--color-result-item-bg);
-        padding: 0.5em 0.625em;
-      }
-
-      .search-form__result-item:hover,
-      .search-form__result-item.selected {
-        background-color: var(--color-result-item-hover-bg);
-      }
-
-      .search-form__result-item-title {
-        font-size: 0.875em;
-        line-height: 1.25em;
-        font-weight: 600;
-        padding: 0;
-        margin: 0;
-        color: var(--color-result-item-title);
-      }
-
-      .search-form__result-item-content {
-        font-size: 0.75em;
-        line-height: 1em;
-        color: var(--color-result-item-content);
-        padding: 0;
-        margin: 0;
-      }
-
-      .search-form__result-item-content img {
-        width: 50%;
-      }
-
-      .search-form__commands {
-        border-top-width: 1px;
-        border-color: var(--color-form-divider);
-        padding: 0.625em 1em;
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      .search-form__commands-item {
-        display: inline-flex;
-        align-items: center;
-        margin-left: 1.25em;
-      }
-
-      .search-form__commands-item span {
-        font-size: 0.75em;
-        line-height: 1em;
-        color: var(--color-command-kbd-item);
-      }
-
-      .search-form__commands-item kbd {
-        color: var(--color-command-kbd-item);
-        font-size: 10px;
-        text-align: center;
-        padding: 0.125em 0.3em;
-        border-width: 1px;
-        border-radius: 0.25em;
-        border-color: var(--color-command-kbd-border);
-        min-width: 1.25em;
-        margin-left: 0.3em;
-        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      }
+      @unocss-placeholder;
     `,
   ];
 }

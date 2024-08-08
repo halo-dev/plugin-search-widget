@@ -2,6 +2,8 @@
 
 Halo 2.0 的通用搜索组件插件。
 
+![Preview](./images/preview.png)
+
 ## 使用方式
 
 1. 下载，目前提供以下两个下载方式：
@@ -68,46 +70,54 @@ halo:
 
 目前已提供的 CSS 变量：
 
-| 变量名                                              | 描述               |
-| --------------------------------------------------- | ------------------ |
-| `--halo-search-widget-base-font-size`               | 基础字体大小       |
-| `--halo-search-widget-base-border-radius`           | 基础元素的圆角     |
-| `--halo-search-widget-base-font-family`             | 基础字体族         |
-| `--halo-search-widget-color-modal-layer`            | 模态层颜色         |
-| `--halo-search-widget-color-modal-content-bg`       | 模态内容背景颜色   |
-| `--halo-search-widget-color-form-input-bg`          | 表单输入背景颜色   |
-| `--halo-search-widget-color-form-input`             | 表单输入文字颜色   |
-| `--halo-search-widget-color-form-input-placeholder` | 表单输入占位符颜色 |
-| `--halo-search-widget-color-form-divider`           | 表单分隔线颜色     |
-| `--halo-search-widget-color-result-empty`           | 无结果提示颜色     |
-| `--halo-search-widget-color-result-item-bg`         | 结果项背景颜色     |
-| `--halo-search-widget-color-result-item-hover-bg`   | 结果项悬停背景颜色 |
-| `--halo-search-widget-color-result-item-title`      | 结果项标题颜色     |
-| `--halo-search-widget-color-result-item-content`    | 结果项内容颜色     |
-| `--halo-search-widget-color-command-kbd-item`       | 命令键盘项颜色     |
-| `--halo-search-widget-color-command-kbd-border`     | 命令键盘边框颜色   |
+| 变量名                                              | 描述               | 备注                                                                             |
+|-----------------------------------------------------|------------------|----------------------------------------------------------------------------------|
+| `--halo-search-widget-base-font-size`               | 基础字体大小       | --                                                                               |
+| `--halo-search-widget-base-font-family`             | 字体               | --                                                                               |
+| `--halo-search-widget-base-rounded`                 | 边框圆角           | --                                                                               |
+| `--halo-search-widget-base-bg-color`                | 基础背景色         | --                                                                               |
+| `--halo-search-widget-primary-color`                | 主色               | --                                                                               |
+| `--halo-search-widget-muted-color`                  | 辅助色             | --                                                                               |
+| `--halo-search-widget-content-color`                | 文本色             | --                                                                               |
+| `--halo-search-widget-modal-bg-color`               | 模态框背景色       | --                                                                               |
+| `--halo-search-widget-modal-layer-color`            | 模态框遮挡层背景色 | --                                                                               |
+| `--halo-search-widget-hit-bg-color`                 | 搜索结果条目背景色 | --                                                                               |
+| `--halo-search-widget-divider-color`                | 分割线颜色         | --                                                                               |
+| `--halo-search-widget-kbd-border-color`             | 快捷键图标边框颜色 | --                                                                               |
+| `--halo-search-widget-kbd-shadow`                   | 快捷键图标阴影     | --                                                                               |
+| `--halo-search-widget-base-border-radius`           | 基础元素的圆角     | 已过时，将在未来的版本移除，后续使用 `--halo-search-widget-base-rounded` 代替      |
+| `--halo-search-widget-color-modal-layer`            | 模态层颜色         | 已过时，将在未来的版本移除，后续使用 `--halo-search-widget-modal-layer-color` 代替 |
+| `--halo-search-widget-color-modal-content-bg`       | 模态内容背景颜色   | 已过时，将在未来的版本移除，后续使用 `--halo-search-widget-modal-bg-color` 代替    |
+| `--halo-search-widget-color-form-input-bg`          | 表单输入背景颜色   | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-form-input`             | 表单输入文字颜色   | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-form-input-placeholder` | 表单输入占位符颜色 | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-form-divider`           | 表单分隔线颜色     | 已过时，将在未来的版本移除，后续使用 `--halo-search-widget-divider-color` 代替     |
+| `--halo-search-widget-color-result-empty`           | 无结果提示颜色     | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-result-item-bg`         | 结果项背景颜色     | 已过时，将在未来的版本移除，后续使用 `--halo-search-widget-hit-bg-color` 代替      |
+| `--halo-search-widget-color-result-item-hover-bg`   | 结果项悬停背景颜色 | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-result-item-title`      | 结果项标题颜色     | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-result-item-content`    | 结果项内容颜色     | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-command-kbd-item`       | 命令键盘项颜色     | 已过时，将在未来的版本移除                                                        |
+| `--halo-search-widget-color-command-kbd-border`     | 命令键盘边框颜色   | 已过时，将在未来的版本移除，后续使用 `--halo-search-widget-kbd-border-color` 代替  |
 
 <details>
 <summary>点击查看 CSS 代码模板</summary>
 
 ```css
-:root {
-   --halo-search-widget-base-font-size: ;
-   --halo-search-widget-base-border-radius: ;
-   --halo-search-widget-base-font-family: ;
-   --halo-search-widget-color-modal-layer: ;
-   --halo-search-widget-color-modal-content-bg: ;
-   --halo-search-widget-color-form-input-bg: ;
-   --halo-search-widget-color-form-input: ;
-   --halo-search-widget-color-form-input-placeholder: ;
-   --halo-search-widget-color-form-divider: ;
-   --halo-search-widget-color-result-empty: ;
-   --halo-search-widget-color-result-item-bg: ;
-   --halo-search-widget-color-result-item-hover-bg: ;
-   --halo-search-widget-color-result-item-title: ;
-   --halo-search-widget-color-result-item-content: ;
-   --halo-search-widget-color-command-kbd-item: ;
-   --halo-search-widget-color-command-kbd-border: ;
+:root{
+  --halo-search-widget-base-font-size: ;
+  --halo-search-widget-base-font-family: ;
+  --halo-search-widget-base-rounded: ;
+  --halo-search-widget-base-bg-color: ;
+  --halo-search-widget-primary-color: ;
+  --halo-search-widget-muted-color: ;
+  --halo-search-widget-content-color: ;
+  --halo-search-widget-modal-bg-color: ;
+  --halo-search-widget-modal-layer-color: ;
+  --halo-search-widget-hit-bg-color: ;
+  --halo-search-widget-divider-color: ;
+  --halo-search-widget-kbd-border-color: ;
+  --halo-search-widget-kbd-shadow: ;
 }
 ```
 
@@ -121,39 +131,34 @@ halo:
 
 ```css
 @media (prefers-color-scheme: dark) {
-  .color-scheme-auto {
+  .color-scheme-auto,
+  [data-color-scheme='auto'] {
     color-scheme: dark;
-    --halo-search-widget-color-modal-layer: rgba(0, 0, 0, 0.8);
-    --halo-search-widget-color-modal-content-bg: rgb(15 23 42);
-    --halo-search-widget-color-form-input: rgb(255, 255, 255);
-    --halo-search-widget-color-form-input-placeholder: rgb(148 163 184);
-    --halo-search-widget-color-form-input-bg: rgb(15 23 42);
-    --halo-search-widget-color-form-divider: rgb(30 41 59);
-    --halo-search-widget-color-result-item-bg: rgb(30 41 59);
-    --halo-search-widget-color-result-item-hover-bg: rgb(51 65 85);
-    --halo-search-widget-color-result-item-title: rgb(255 255 255);
-    --halo-search-widget-color-result-item-content: rgb(148 163 184);
-    --halo-search-widget-color-command-kbd-item: rgb(148 163 184);
-    --halo-search-widget-color-command-kbd-border: rgb(30 41 59);
-    --halo-search-widget-color-result-empty: rgb(148 163 184);
+    --halo-search-widget-muted-color: #cbd5e1;
+    --halo-search-widget-content-color: #f1f5f9;
+    --halo-search-widget-hit-bg-color: #090a11;
+    --halo-search-widget-modal-bg-color: #15172a;
+    --halo-search-widget-modal-layer-color: #000000cc;
+    --halo-search-widget-base-bg-color: #090a11;
+    --halo-search-widget-divider-color: #1e293b;
+    --halo-search-widget-kbd-border-color: #334155;
+    --halo-search-widget-kbd-shadow: 0px 2px 0px 0px #ffffff1a;
   }
 }
 
-.color-scheme-dark {
+.color-scheme-dark,
+.dark,
+[data-color-scheme='dark'] {
   color-scheme: dark;
-  --halo-search-widget-color-modal-layer: rgba(0, 0, 0, 0.8);
-  --halo-search-widget-color-modal-content-bg: rgb(15 23 42);
-  --halo-search-widget-color-form-input: rgb(255, 255, 255);
-  --halo-search-widget-color-form-input-placeholder: rgb(148 163 184);
-  --halo-search-widget-color-form-input-bg: rgb(15 23 42);
-  --halo-search-widget-color-form-divider: rgb(30 41 59);
-  --halo-search-widget-color-result-item-bg: rgb(30 41 59);
-  --halo-search-widget-color-result-item-hover-bg: rgb(51 65 85);
-  --halo-search-widget-color-result-item-title: rgb(255 255 255);
-  --halo-search-widget-color-result-item-content: rgb(148 163 184);
-  --halo-search-widget-color-command-kbd-item: rgb(148 163 184);
-  --halo-search-widget-color-command-kbd-border: rgb(30 41 59);
-  --halo-search-widget-color-result-empty: rgb(148 163 184);
+  --halo-search-widget-muted-color: #cbd5e1;
+  --halo-search-widget-content-color: #f1f5f9;
+  --halo-search-widget-hit-bg-color: #090a11;
+  --halo-search-widget-modal-bg-color: #15172a;
+  --halo-search-widget-modal-layer-color: #000000cc;
+  --halo-search-widget-base-bg-color: #090a11;
+  --halo-search-widget-divider-color: #1e293b;
+  --halo-search-widget-kbd-border-color: #334155;
+  --halo-search-widget-kbd-shadow: 0px 2px 0px 0px #ffffff1a;
 }
 ```
 
@@ -167,3 +172,7 @@ halo:
    1. `auto`：自动模式，根据系统的暗黑模式自动切换。
    2. `dark`：强制暗黑模式。
    3. `light`：强制明亮模式。
+
+## Credits
+
+- [Algolia DocSearch](https://github.com/algolia/docsearch): 搜索组件的 UI 设计灵感来源于 DocSearch。

@@ -2,33 +2,6 @@ import { css } from 'lit';
 
 const varStyles = css`
   :host {
-    --base-font-size: var(--halo-search-widget-base-font-size, 1rem);
-    --base-border-radius: var(--halo-search-widget-base-border-radius, 0.4em);
-    --base-font-family: var(
-      --halo-search-widget-base-font-family,
-      ui-sans-serif,
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      Segoe UI,
-      Roboto,
-      Helvetica Neue,
-      Arial,
-      Noto Sans,
-      sans-serif,
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      Segoe UI Symbol,
-      'Noto Color Emoji'
-    );
-    --color-modal-layer: var(
-      --halo-search-widget-color-modal-layer,
-      rgb(107 114 128 / 0.75)
-    );
-    --color-modal-content-bg: var(
-      --halo-search-widget-color-modal-content-bg,
-      #fff
-    );
     --color-form-input-bg: var(--halo-search-widget-color-form-input-bg, #fff);
     --color-form-input: var(--halo-search-widget-color-form-input, #333);
     --color-form-input-placeholder: var(

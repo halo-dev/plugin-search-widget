@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Widget Preview</title>
+    <script type="module" src="/src/index.ts"></script>
+
+    <style>
+      body {
+        margin: 0 auto;
+        max-width: 1024px;
+        padding: 2rem;
+      }
+
+      .dark search-modal {
+        color-scheme: dark;
+        --halo-search-widget-muted-color: #cbd5e1;
+        --halo-search-widget-content-color: #f1f5f9;
+        --halo-search-widget-hit-bg-color: #090a11;
+        --halo-search-widget-modal-bg-color: #15172a;
+        --halo-search-widget-modal-layer-color: #000000cc;
+        --halo-search-widget-base-bg-color: #090a11;
+        --halo-search-widget-divider-color: #1e293b;
+        --halo-search-widget-kbd-border-color: #334155;
+        --halo-search-widget-kbd-shadow: 0px 2px 0px 0px #ffffff1a;
+
+        --halo-search-widget-color-modal-layer: rgba(0, 0, 0, 0.8);
+        --halo-search-widget-color-modal-content-bg: rgb(15 23 42);
+        --halo-search-widget-color-form-input: rgb(255, 255, 255);
+        --halo-search-widget-color-form-input-placeholder: rgb(148 163 184);
+        --halo-search-widget-color-form-input-bg: rgb(15 23 42);
+        --halo-search-widget-color-form-divider: rgb(30 41 59);
+        --halo-search-widget-color-result-item-bg: rgb(30 41 59);
+        --halo-search-widget-color-result-item-hover-bg: rgb(51 65 85);
+        --halo-search-widget-color-result-item-title: rgb(255 255 255);
+        --halo-search-widget-color-result-item-content: rgb(148 163 184);
+        --halo-search-widget-color-command-kbd-item: rgb(148 163 184);
+        --halo-search-widget-color-command-kbd-border: rgb(30 41 59);
+        --halo-search-widget-color-result-empty: rgb(148 163 184);
+      }
+
+      body > * {
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <button>启动</button>
+    <button id="color">暗色/亮色</button>
+    <search-modal></search-modal>
+  </body>
+  <script>
+    const button = document.querySelector('button');
+    const searchModal = document.querySelector('search-modal');
+
+    button.addEventListener('click', () => {
+      searchModal.open = !searchModal.open;
+    });
+
+    const color = document.getElementById('color');
+    color.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+  </script>
+</html>
