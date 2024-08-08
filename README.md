@@ -170,3 +170,7 @@ halo:
    1. `auto`：自动模式，根据系统的暗黑模式自动切换。
    2. `dark`：强制暗黑模式。
    3. `light`：强制明亮模式。
+
+## Credits
+
+- [Algolia DocSearch](https://github.com/algolia/docsearch): 搜索组件的 UI 设计灵感来源于 DocSearch。
