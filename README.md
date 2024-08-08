@@ -2,6 +2,8 @@
 
 Halo 2.0 的通用搜索组件插件。
 
+![Preview](./images/preview.png)
+
 ## 使用方式
 
 1. 下载，目前提供以下两个下载方式：
