@@ -170,7 +170,7 @@ export class SearchForm extends LitElement {
             ? 'text-white'
             : 'text-muted'}"
         ></span>
-        <div class="flex-1 space-y-1 min-w-0">
+        <div class="flex-1 space-y-1.5 min-w-0">
           <h2
             class="text-sm font-medium ${this.selectedIndex === index
               ? 'text-white'
@@ -181,7 +181,7 @@ export class SearchForm extends LitElement {
           ${hit.description
             ? html`
                 <p
-                  class="text-xs ${this.selectedIndex === index
+                  class="text-xs leading-6 ${this.selectedIndex === index
                     ? 'text-white/90'
                     : 'text-muted'}"
                 >
