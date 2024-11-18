@@ -5,12 +5,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { DebouncedFunc, debounce, uniqBy } from 'lodash-es';
-import {
-  HISTORY_KEY,
-  MAX_HISTORY_ITEMS,
-  SHORTCUT_HELP_LIST,
-} from './constants';
+import { HISTORY_KEY, MAX_HISTORY_ITEMS } from './constants';
 import baseStyles from './styles/base';
+import { msg } from '@lit/localize';
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -65,7 +62,7 @@ export class SearchForm extends LitElement {
           ></span>
           <input
             @input="${this.onInput}"
-            placeholder="输入关键词以搜索"
+            placeholder=${msg('Enter keywords to search')}
             autocomplete="off"
             spellcheck="false"
             ${ref(this.inputRef)}
@@ -87,7 +84,20 @@ export class SearchForm extends LitElement {
       <div
         class="border-t border-divider p-3 bg-base sticky bottom-0 space-x-5 flex justify-end"
       >
-        ${SHORTCUT_HELP_LIST.map(
+        ${[
+          {
+            text: html`${msg('Select')}`,
+            kbdIcons: ['i-lucide-arrow-up', 'i-lucide-arrow-down'],
+          },
+          {
+            text: html`${msg('Confirm')}`,
+            kbdIcons: ['i-lucide-corner-down-left'],
+          },
+          {
+            text: html`${msg('Close')}`,
+            kbdIcons: ['i-mdi-keyboard-esc'],
+          },
+        ].map(
           (item) => html`
             <div class="flex items-center space-x-1.5">
               ${item.kbdIcons.map(
@@ -127,7 +137,7 @@ export class SearchForm extends LitElement {
 
   renderEmpty() {
     return html`<div class="flex py-4 justify-center text-sm text-muted">
-      <span>没有搜索结果</span>
+      <span>${msg('No search results')}</span>
     </div>`;
   }
 
@@ -136,12 +146,14 @@ export class SearchForm extends LitElement {
       <div class="p-3">
         ${this.historyHits.length
           ? html`<div class="flex justify-between items-center">
-                <h3 class="text-sm font-medium text-primary">搜索历史</h3>
+                <h3 class="text-sm font-medium text-primary">
+                  ${msg('Recent')}
+                </h3>
                 <span
                   class="text-xs cursor-pointer text-muted hover:text-content"
                   @click=${this.handleClearHistory}
                 >
-                  清除历史
+                  ${msg('Clear')}
                 </span>
               </div>
               <ul class="mt-3 space-y-1.5" role="list">

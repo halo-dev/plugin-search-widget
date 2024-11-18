@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file target-language="zh-CN" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="sfc63e31ac7c956ed">
+  <source>Select</source>
+  <target>选择</target>
+</trans-unit>
+<trans-unit id="sb85774dc5d18ff0f">
+  <source>Confirm</source>
+  <target>确认</target>
+</trans-unit>
+<trans-unit id="s5e8250fb85d64c23">
+  <source>Close</source>
+  <target>关闭</target>
+</trans-unit>
+<trans-unit id="sad5f82f8364e5a1c">
+  <source>Enter keywords to search</source>
+  <target>输入关键词以搜索</target>
+</trans-unit>
+<trans-unit id="sa84142fc34654130">
+  <source>No search results</source>
+  <target>没有搜索结果</target>
+</trans-unit>
+<trans-unit id="sbce70cbdb856635e">
+  <source>Recent</source>
+  <target>最近搜索</target>
+</trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+  <target>清空</target>
+</trans-unit>
+</body>
+</file>
+</xliff>

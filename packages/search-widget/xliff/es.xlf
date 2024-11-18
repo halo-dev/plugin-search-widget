@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file target-language="es" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="sfc63e31ac7c956ed">
+  <source>Select</source>
+  <target>Seleccionar</target>
+</trans-unit>
+<trans-unit id="sb85774dc5d18ff0f">
+  <source>Confirm</source>
+  <target>Confirmar</target>
+</trans-unit>
+<trans-unit id="s5e8250fb85d64c23">
+  <source>Close</source>
+  <target>Cerrar</target>
+</trans-unit>
+<trans-unit id="sad5f82f8364e5a1c">
+  <source>Enter keywords to search</source>
+  <target>Introducir palabras clave para buscar</target>
+</trans-unit>
+<trans-unit id="sa84142fc34654130">
+  <source>No search results</source>
+  <target>Sin resultados de búsqueda</target>
+</trans-unit>
+<trans-unit id="sbce70cbdb856635e">
+  <source>Recent</source>
+  <target>Recientes</target>
+</trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+  <target>Borrar</target>
+</trans-unit>
+</body>
+</file>
+</xliff>
