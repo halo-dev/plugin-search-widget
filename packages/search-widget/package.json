@@ -23,6 +23,7 @@
     "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write"
   },
   "dependencies": {
+    "@lit/localize": "^0.12.2",
     "lit": "^3.2.0",
     "lodash-es": "^4.17.21",
     "overlayscrollbars": "^2.10.0"
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@iconify/json": "^2.2.234",
     "@julr/unocss-preset-forms": "^0.1.0",
+    "@lit/localize-tools": "^0.8.0",
     "@types/lodash-es": "^4.17.12",
     "@unocss/eslint-config": "^0.61.9",
     "@unocss/reset": "^0.61.9",
