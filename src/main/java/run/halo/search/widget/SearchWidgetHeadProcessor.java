@@ -35,7 +35,7 @@ public class SearchWidgetHeadProcessor implements TemplateHeadProcessor {
 
         return PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders("""
             <!-- PluginSearchWidget start -->
-            <script src="/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=${version}" async></script>
+            <script src="/plugins/PluginSearchWidget/assets/static/search-widget.iife.js?version=${version}" defer></script>
             <link rel="stylesheet" href="/plugins/PluginSearchWidget/assets/static/style.css?version=${version}" />
             <!-- PluginSearchWidget end -->
             """, properties);
