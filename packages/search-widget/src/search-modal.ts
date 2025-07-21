@@ -1,5 +1,5 @@
 import resetStyles from '@unocss/reset/tailwind.css?inline';
-import { LitElement, PropertyValues, css, html, unsafeCSS } from 'lit';
+import { css, html, LitElement, type PropertyValues, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { OverlayScrollbars } from 'overlayscrollbars';
@@ -60,12 +60,14 @@ export class SearchModal extends LitElement {
         data-overlayscrollbars-initialize
         class="modal__content shadow-xl bg-modal"
       >
-        ${this.open
-          ? html`<search-form
+        ${
+          this.open
+            ? html`<search-form
               .baseUrl=${this.baseUrl}
               .options=${this.options}
             ></search-form>`
-          : ''}
+            : ''
+        }
       </div>
     </div>`;
   }

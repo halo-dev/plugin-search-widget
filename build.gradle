@@ -32,7 +32,7 @@ node {
 }
 
 tasks.register('buildFrontend', PnpmTask) {
-    args = ['build:packages']
+    args = ['build']
     dependsOn('installDepsForUI')
 }
 
@@ -48,5 +48,5 @@ build {
 }
 
 halo {
-    version = "2.20"
+    version = "2.21"
 }

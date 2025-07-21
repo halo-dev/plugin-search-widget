@@ -3,6 +3,7 @@ import {
   definePreset,
   presetIcons,
   presetUno,
+  presetWind3,
   transformerCompileClass,
   transformerDirectives,
 } from 'unocss';
@@ -23,7 +24,7 @@ const presetRemToEm = definePreset(() => {
 });
 
 export default defineConfig({
-  presets: [presetUno(), presetIcons(), presetRemToEm()],
+  presets: [presetWind3(), presetIcons(), presetRemToEm()],
   transformers: [transformerDirectives(), transformerCompileClass()],
   theme: {
     colors: {

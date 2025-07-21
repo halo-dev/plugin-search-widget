@@ -1,17 +1,17 @@
+import path from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
-
 import { defineConfig } from 'vite';
-import path from 'path';
 
 export default defineConfig({
+  experimental: {
+    enableNativePlugin: true,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  define: {
-    'process.env': process.env,
-  },
+  define: { 'process.env.NODE_ENV': "'production'" },
   build: {
     outDir: fileURLToPath(
       new URL('../../src/main/resources/static', import.meta.url)
@@ -23,6 +23,7 @@ export default defineConfig({
       formats: ['iife'],
       name: 'SearchWidget',
       fileName: (format) => `search-widget.${format}.js`,
+      cssFileName: 'style',
     },
     sourcemap: false,
   },

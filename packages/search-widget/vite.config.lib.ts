@@ -1,5 +1,5 @@
 import UnoCSS from 'unocss/vite';
-import { defineConfig, Plugin } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
@@ -21,7 +21,7 @@ export default defineConfig({
     UnoCSS({
       mode: 'shadow-dom',
       configFile: './uno.config.ts',
-    }) as Plugin,
+    }),
     dts() as Plugin,
   ],
 });

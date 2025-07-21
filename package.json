@@ -1,7 +1,7 @@
 {
   "license": "GPL-3.0",
   "author": {
-    "name": "Halo OSS Team",
+    "name": "Halo",
     "url": "https://github.com/halo-dev"
   },
   "contributors": [
@@ -12,19 +12,30 @@
     }
   ],
   "scripts": {
-    "build:packages": "pnpm --filter \"./packages/**\" build",
-    "example:dev": "pnpm --filter \"./packages/search-widget\" dev",
-    "release:packages": "pnpm --filter \"./packages/**\" release"
+    "build": "pnpm -r run build",
+    "check": "biome check --write",
+    "example:dev": "pnpm -C packages/search-widget dev",
+    "prepare": "husky",
+    "release:packages": "pnpm -r run release"
+  },
+  "lint-staged": {
+    "*": [
+      "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
     "@halo-dev/api-client": "2.17.0",
     "@rushstack/eslint-patch": "^1.10.4",
     "@types/node": "^18.19.43",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "prettier": "^2.8.8",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5"
-  }
+    "vite": "npm:rolldown-vite@7.0.8"
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }

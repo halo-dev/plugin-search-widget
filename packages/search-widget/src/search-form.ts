@@ -1,13 +1,18 @@
-import { HaloDocument, SearchOption, SearchResult } from '@halo-dev/api-client';
+import type {
+  HaloDocument,
+  SearchOption,
+  SearchResult,
+} from '@halo-dev/api-client';
+import { msg } from '@lit/localize';
 import resetStyles from '@unocss/reset/tailwind.css?inline';
-import { LitElement, css, html, unsafeCSS } from 'lit';
+import { type DebouncedFunction, debounce } from 'es-toolkit';
+import { uniqBy } from 'es-toolkit/compat';
+import { css, html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { Ref, createRef, ref } from 'lit/directives/ref.js';
+import { createRef, type Ref, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { DebouncedFunc, debounce, uniqBy } from 'lodash-es';
 import { HISTORY_KEY, MAX_HISTORY_ITEMS } from './constants';
 import baseStyles from './styles/base';
-import { msg } from '@lit/localize';
 
 @customElement('search-form')
 export class SearchForm extends LitElement {
@@ -56,9 +61,11 @@ export class SearchForm extends LitElement {
           @submit=${(e: Event) => e.preventDefault()}
         >
           <span
-            class="shrink flex-none size-6 text-primary ${this.loading
-              ? 'i-lucide-loader-circle animate-spin'
-              : 'i-lucide-search'}"
+            class="shrink flex-none size-6 text-primary ${
+              this.loading
+                ? 'i-lucide-loader-circle animate-spin'
+                : 'i-lucide-search'
+            }"
           ></span>
           <input
             @input="${this.onInput}"
@@ -68,14 +75,16 @@ export class SearchForm extends LitElement {
             ${ref(this.inputRef)}
             class="flex-1 min-w-0 outline-none text-content h-full px-2.5 bg-transparent"
           />
-          ${this.keyword
-            ? html`
+          ${
+            this.keyword
+              ? html`
                 <span
                   @click=${this.handleClearInput}
                   class="flex-none cursor-pointer shrink i-lucide-x size-5 text-muted hover:text-content"
                 ></span>
               `
-            : ''}
+              : ''
+          }
         </form>
       </div>
 
@@ -120,8 +129,10 @@ export class SearchForm extends LitElement {
   handleClearInput() {
     this.keyword = '';
     this.searchResult = undefined;
-    this.inputRef.value!.value = '';
-    this.inputRef.value!.focus();
+    if (this.inputRef.value) {
+      this.inputRef.value.value = '';
+      this.inputRef.value.focus();
+    }
   }
 
   renderItems() {
@@ -144,8 +155,9 @@ export class SearchForm extends LitElement {
   renderHistoryItems() {
     return html`
       <div class="p-3">
-        ${this.historyHits.length
-          ? html`<div class="flex justify-between items-center">
+        ${
+          this.historyHits.length
+            ? html`<div class="flex justify-between items-center">
                 <h3 class="text-sm font-medium text-primary">
                   ${msg('Recent')}
                 </h3>
@@ -161,7 +173,8 @@ export class SearchForm extends LitElement {
                   this.renderListItem(hit, index, 'i-lucide-history')
                 )}
               </ul>`
-          : this.renderEmpty()}
+            : this.renderEmpty()
+        }
       </div>
     `;
   }
@@ -170,43 +183,49 @@ export class SearchForm extends LitElement {
     return html`
       <li
         @click="${() => this.handleOpenLink(hit)}"
-        @mouseenter=${() => (this.selectedIndex = index)}
-        class="shadow-sm flex items-center space-x-3 rounded-base cursor-pointer p-3 bg-hit [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${index ===
-        this.selectedIndex
-          ? '!bg-primary [&_mark]:!text-white [&_mark]:underline'
-          : ''}"
+        @mouseenter=${() => {
+          this.selectedIndex = index;
+        }}
+        class="shadow-sm flex items-center space-x-3 rounded-base cursor-pointer p-3 bg-hit [&_mark]:text-primary [&_mark]:font-semibold [&_mark]:bg-transparent ${
+          index === this.selectedIndex
+            ? '!bg-primary [&_mark]:!text-white [&_mark]:underline'
+            : ''
+        }"
         data-index=${index}
       >
         <span
-          class="flex-none shrink ${listIcon} ${this.selectedIndex === index
-            ? 'text-white'
-            : 'text-muted'}"
+          class="flex-none shrink ${listIcon} ${
+            this.selectedIndex === index ? 'text-white' : 'text-muted'
+          }"
         ></span>
         <div class="flex-1 space-y-1.5 min-w-0">
           <h2
-            class="text-sm font-medium ${this.selectedIndex === index
-              ? 'text-white'
-              : 'text-content'}"
+            class="text-sm font-medium ${
+              this.selectedIndex === index ? 'text-white' : 'text-content'
+            }"
           >
             ${unsafeHTML(hit.title)}
           </h2>
-          ${hit.description
-            ? html`
+          ${
+            hit.description
+              ? html`
                 <p
-                  class="text-xs leading-6 ${this.selectedIndex === index
-                    ? 'text-white/90'
-                    : 'text-muted'}"
+                  class="text-xs leading-6 ${
+                    this.selectedIndex === index
+                      ? 'text-white/90'
+                      : 'text-muted'
+                  }"
                 >
                   ${unsafeHTML(hit.description)}
                 </p>
               `
-            : ''}
+              : ''
+          }
         </div>
         <span
-          class="i-lucide-corner-down-left flex-none shrink text-white invisible ${this
-            .selectedIndex === index
-            ? '!visible'
-            : ''}"
+          class="i-lucide-corner-down-left flex-none shrink text-white invisible ${
+            this.selectedIndex === index ? '!visible' : ''
+          }"
         ></span>
       </li>
     `;
@@ -234,7 +253,7 @@ export class SearchForm extends LitElement {
     this.historyHits = [];
   }
 
-  fetchHits: DebouncedFunc<(keyword: string) => Promise<void>> = debounce(
+  fetchHits: DebouncedFunction<(keyword: string) => Promise<void>> = debounce(
     async (keyword: string) => {
       const searchOptions: SearchOption = {
         ...this.options,

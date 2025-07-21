@@ -24,19 +24,18 @@
   },
   "dependencies": {
     "@lit/localize": "^0.12.2",
+    "es-toolkit": "^1.39.7",
     "lit": "^3.2.0",
-    "lodash-es": "^4.17.21",
     "overlayscrollbars": "^2.10.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.234",
-    "@julr/unocss-preset-forms": "^0.1.0",
+    "@julr/unocss-preset-forms": "^2.0.0",
     "@lit/localize-tools": "^0.8.0",
-    "@types/lodash-es": "^4.17.12",
-    "@unocss/eslint-config": "^0.61.9",
-    "@unocss/reset": "^0.61.9",
+    "@unocss/reset": "^66.3.3",
     "lit-analyzer": "^1.2.1",
-    "unocss": "^0.61.9",
-    "vite-plugin-dts": "4.0.0-beta.2"
+    "unocss": "^66.3.3",
+    "vite-plugin-dts": "4.0.0-beta.2",
+    "vite": "npm:rolldown-vite@7.0.8"
   }
 }
