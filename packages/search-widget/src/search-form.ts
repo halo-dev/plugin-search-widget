@@ -8,13 +8,12 @@ import resetStyles from '@unocss/reset/tailwind.css?inline';
 import { type DebouncedFunction, debounce } from 'es-toolkit';
 import { uniqBy } from 'es-toolkit/compat';
 import { css, html, LitElement, unsafeCSS } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { createRef, type Ref, ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { HISTORY_KEY, MAX_HISTORY_ITEMS } from './constants';
 import baseStyles from './styles/base';
 
-@customElement('search-form')
 export class SearchForm extends LitElement {
   @property({ type: String })
   baseUrl = '';
@@ -340,6 +339,9 @@ export class SearchForm extends LitElement {
     `,
   ];
 }
+
+customElements.get('search-form') ||
+  customElements.define('search-form', SearchForm);
 
 declare global {
   interface HTMLElementTagNameMap {
