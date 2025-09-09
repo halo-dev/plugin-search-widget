@@ -1,13 +1,12 @@
 import resetStyles from '@unocss/reset/tailwind.css?inline';
 import { css, html, LitElement, type PropertyValues, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import overlayscrollbarsStyles from 'overlayscrollbars/styles/overlayscrollbars.css?inline';
 import './search-form';
 import baseStyles from './styles/base';
 
-@customElement('search-modal')
 export class SearchModal extends LitElement {
   @property({
     type: Boolean,
@@ -178,6 +177,9 @@ export class SearchModal extends LitElement {
     `,
   ];
 }
+
+customElements.get('search-modal') ||
+  customElements.define('search-modal', SearchModal);
 
 declare global {
   interface HTMLElementTagNameMap {
