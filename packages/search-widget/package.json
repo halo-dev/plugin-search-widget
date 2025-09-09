@@ -20,7 +20,8 @@
     "dev": "vite --config vite.config.dev.ts",
     "build": "vite build --config vite.config.lib.ts",
     "lint": "lit-analyzer && eslint 'src/**/*.ts' --fix",
-    "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write"
+    "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@lit/localize": "^0.12.2",
