@@ -19,6 +19,9 @@ export class SearchModal extends LitElement {
   @property({ type: Object })
   options = {};
 
+  @property({ type: Boolean })
+  lockScroll = true;
+
   constructor() {
     super();
 
@@ -42,10 +45,12 @@ export class SearchModal extends LitElement {
       return;
     }
 
-    if (this.open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.removeProperty('overflow');
+    if (this.lockScroll) {
+      if (this.open) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.removeProperty('overflow');
+      }
     }
   }
 
