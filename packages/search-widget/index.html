@@ -46,16 +46,44 @@
     </style>
   </head>
   <body>
-    <button>启动</button>
-    <button id="color">暗色/亮色</button>
+    <h1>Search Widget Demo</h1>
+    
+    <div>
+      <button id="open-default">Open Modal (Default - Lock Scroll)</button>
+      <button id="open-no-lock">Open Modal (No Lock Scroll)</button>
+      <button id="color">Toggle Dark/Light Mode</button>
+    </div>
+    
+    <div style="margin-top: 2rem;">
+      <h2>Configuration Examples</h2>
+      <p>Default behavior (lockScroll = true): Page scrollbar is hidden when modal opens</p>
+      <p>With lockScroll = false: Page scrollbar remains visible, preventing page jitter</p>
+    </div>
+    
+    <div style="margin-top: 2rem;">
+      <h3>Long content to enable scrolling</h3>
+      <div style="height: 2000px; background: linear-gradient(to bottom, #f0f0f0, #ffffff);">
+        <p>Scroll down to see the scrollbar...</p>
+      </div>
+    </div>
+    
     <search-modal></search-modal>
   </body>
   <script>
-    const button = document.querySelector('button');
+    const openDefaultBtn = document.getElementById('open-default');
+    const openNoLockBtn = document.getElementById('open-no-lock');
     const searchModal = document.querySelector('search-modal');
 
-    button.addEventListener('click', () => {
-      searchModal.open = !searchModal.open;
+    // Open with default lockScroll (true)
+    openDefaultBtn.addEventListener('click', () => {
+      searchModal.lockScroll = true;
+      searchModal.open = true;
+    });
+
+    // Open with lockScroll = false
+    openNoLockBtn.addEventListener('click', () => {
+      searchModal.lockScroll = false;
+      searchModal.open = true;
     });
 
     const color = document.getElementById('color');
