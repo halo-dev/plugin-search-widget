@@ -46,8 +46,22 @@
     </style>
   </head>
   <body>
-    <button>启动</button>
-    <button id="color">暗色/亮色</button>
+    <h1>Search Widget - Page Jitter Fix Test</h1>
+    <button>Open Search Modal</button>
+    <button id="color">Toggle Dark/Light Mode</button>
+    
+    <div style="margin-top: 2rem;">
+      <h2>Testing the Fix</h2>
+      <p>This page has enough content to show a scrollbar. When you open the search modal, the page should NOT shift to the right.</p>
+      <p>The fix works by calculating the scrollbar width and adding equivalent padding to compensate for the scrollbar removal.</p>
+    </div>
+    
+    <!-- Add enough content to ensure scrollbar appears -->
+    <div style="height: 2000px; background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);">
+      <p style="padding: 2rem;">Long content to ensure scrollbar is visible...</p>
+      <p style="padding: 2rem;">Notice that when the modal opens, there's no layout shift!</p>
+    </div>
+    
     <search-modal></search-modal>
   </body>
   <script>
