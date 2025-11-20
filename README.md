@@ -64,36 +64,6 @@ halo:
 
 其中，`pluginFinder.available('PluginSearchWidget')` 的作用是判断使用者是否安装和启用了此插件，如果没有安装或者没有启用，那么就不会显示搜索入口。
 
-#### 配置选项
-
-`SearchWidget.open()` 支持传入配置参数：
-
-```javascript
-// 不传参数，使用默认配置
-SearchWidget.open();
-
-// 传入搜索选项（旧版本兼容方式）
-SearchWidget.open({ keyword: '关键词' });
-
-// 传入完整配置（推荐）
-SearchWidget.open({
-  searchOptions: {
-    keyword: '关键词',
-    // 其他搜索选项...
-  },
-  lockScroll: false // 是否锁定页面滚动，默认为 true
-});
-```
-
-**参数说明：**
-
-- `searchOptions`: 搜索 API 的选项参数
-- `lockScroll`: 是否在打开搜索框时锁定页面滚动（隐藏滚动条），默认为 `true`
-  - 设置为 `true` 时，打开搜索框会隐藏页面滚动条（默认行为）
-  - 设置为 `false` 时，打开搜索框不会隐藏页面滚动条，可以避免页面抖动问题
-
-**注意：** 如果你的网站在打开搜索框时出现页面抖动或内容偏移的问题，可以将 `lockScroll` 设置为 `false` 来解决。
-
 ### 自定义样式
 
 虽然目前不能直接为搜索组件编写额外的样式，但可以通过一系列的 CSS 变量来自定义部分样式，开发者可以根据需求自行在主题中添加这些 CSS 变量，让搜索组件和主题更好地融合。

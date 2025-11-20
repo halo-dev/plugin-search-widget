@@ -19,9 +19,6 @@ export class SearchModal extends LitElement {
   @property({ type: Object })
   options = {};
 
-  @property({ type: Boolean })
-  lockScroll = true;
-
   constructor() {
     super();
 
@@ -45,12 +42,18 @@ export class SearchModal extends LitElement {
       return;
     }
 
-    if (this.lockScroll) {
-      if (this.open) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.removeProperty('overflow');
+    if (this.open) {
+      // Calculate scrollbar width to prevent layout shift
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      // Add padding to compensate for scrollbar removal
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
+    } else {
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('padding-right');
     }
   }
 
