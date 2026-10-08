@@ -1,49 +1,62 @@
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "8.0.1"
-    id "com.github.node-gradle.node" version "7.0.2"
-    id "run.halo.plugin.devtools" version "0.1.1"
+    id "io.freefair.lombok" version "9.2.0"
+    id "com.github.node-gradle.node" version "7.1.0" apply false
+    id "run.halo.plugin.devtools" version "0.8.0"
 }
 
-group 'run.halo.search.widget'
-sourceCompatibility = JavaVersion.VERSION_17
+group = 'run.halo.search.widget'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation platform('run.halo.tools.platform:plugin:2.20.11')
+    implementation platform('run.halo.tools.platform:plugin:2.26.0')
     compileOnly 'run.halo.app:api'
 
     testImplementation 'run.halo.app:api'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
     useJUnitPlatform()
 }
 
-node {
-    nodeProjectDir = file("${project.projectDir}")
-}
-
-tasks.register('buildFrontend', PnpmTask) {
-    args = ['build']
-    dependsOn('installDepsForUI')
-}
-
-tasks.register('installDepsForUI', PnpmTask) {
-    args = ['install']
-}
-
-build {
-    // build frontend before build
-    tasks.named('compileJava').configure {
-        dependsOn('buildFrontend')
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 21
+}
+
+sourceSets.main.resources.exclude 'static/**'
+
+tasks.named('processResources', Copy) {
+    dependsOn ':packages:pnpmBuild'
+
+    from(project(':packages').layout.projectDirectory.dir('widget/build/dist')) {
+        into 'static'
+    }
+
+    doFirst {
+        delete layout.buildDirectory.dir('resources/main/static')
+    }
+}
+
+tasks.named('clean') {
+    dependsOn ':packages:clean'
+}
+
+tasks.named('generatePluginComponentsIdx') {
+    notCompatibleWithConfigurationCache('This task invokes "Task.project" at execution time, which is not supported with configuration cache.')
+}
+
 halo {
-    version = "2.21"
+    version = "2.26"
 }

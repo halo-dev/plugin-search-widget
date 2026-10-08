@@ -1,12 +1,15 @@
 {
+  "name": "@halo-dev/search-widget-bundle",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "vite",
-    "lint": "eslint 'src/**/*.ts'",
-    "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write"
+    "dev": "vite"
   },
   "dependencies": {
     "@halo-dev/search-widget": "workspace:*"
+  },
+  "devDependencies": {
+    "@halo-dev/api-client": "^2.26.0"
   }
 }

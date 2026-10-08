@@ -15,6 +15,8 @@ Halo 2.0 的通用搜索组件插件。
 
 ## 开发环境
 
+需要 Java 21、Node.js 24（最低 22.12）和 pnpm 12.10.1，插件运行环境为 Halo 2.26 及以上。
+
 ```bash
 git clone git@github.com:halo-dev/plugin-search-widget.git
 
@@ -28,34 +30,35 @@ cd path/to/plugin-search-widget
 ```
 
 ```bash
-./gradlew pnpmInstall
-
 ./gradlew build
 ```
 
-修改 Halo 配置文件：
+`packages` 同时是 Gradle 子项目和 pnpm workspace。Gradle 会自动安装依赖、按包间依赖顺序构建前端，并将 `packages/widget/build/dist` 复制到 `build/resources/main/static`，最后打包到插件 JAR。前端构建不会写入 `src/main/resources`。
 
-```yaml
-halo:
-  plugin:
-    runtime-mode: development
-    classes-directories:
-      - "build/classes"
-      - "build/resources"
-    lib-directories:
-      - "libs"
-    fixedPluginPath:
-      - "/path/to/plugin-search-widget"
+启动用于开发的 Halo（需要 Docker）：
+
+```bash
+./gradlew haloServer
 ```
+
+单独构建前端或启动搜索组件示例：
+
+```bash
+pnpm -C packages install --frozen-lockfile
+pnpm -C packages build
+pnpm -C packages example:dev
+```
+
+代码检查使用 `pnpm -C packages check`，自动修复使用 `pnpm -C packages check:fix`。`./gradlew clean` 会同时清理插件和前端构建产物。
 
 ### 运行测试
 
 测试使用 Vitest Browser Mode 和 Playwright Chromium，建议使用 Node.js 24。首次运行前安装依赖和浏览器：
 
 ```bash
-pnpm install --frozen-lockfile
+pnpm -C packages install --frozen-lockfile
 pnpm -C packages/search-widget exec playwright install chromium
-pnpm test
+pnpm -C packages test
 ```
 
 测试直接加载组件源码，无需启动 Halo 或手动打开测试页面。

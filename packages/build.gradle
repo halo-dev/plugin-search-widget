@@ -1,0 +1,37 @@
+plugins {
+    id 'base'
+    id 'com.github.node-gradle.node'
+}
+
+node {
+    pnpmVersion = '12'
+    nodeProjectDir = projectDir
+}
+
+tasks.named('pnpmInstall') {
+    args = ['--frozen-lockfile']
+    inputs.files('pnpm-lock.yaml', 'pnpm-workspace.yaml',
+        'search-widget/package.json', 'widget/package.json')
+}
+
+tasks.register('pnpmBuild', PnpmTask) {
+    group = 'build'
+    args = ['run', 'build']
+    dependsOn tasks.named('pnpmInstall')
+
+    inputs.files(fileTree(projectDir) {
+        include 'search-widget/**', 'widget/**'
+        include 'package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'tsconfig.json'
+        exclude '**/node_modules/**', '**/dist/**', '**/build/**', '**/coverage/**', '**/.vitest/**'
+    })
+    outputs.dir('search-widget/dist')
+    outputs.dir('widget/build/dist')
+}
+
+tasks.named('assemble') {
+    dependsOn tasks.named('pnpmBuild')
+}
+
+tasks.named('clean') {
+    delete 'search-widget/dist', 'widget/build'
+}

@@ -12,16 +12,21 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: lts/*
+          node-version: "24"
           registry-url: https://registry.npmjs.org/
-      - uses: pnpm/action-setup@v4
-      - run: pnpm install
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: packages/package.json
+      - run: pnpm install --frozen-lockfile
       - name: Upgrade npm
         run: npm i -g npm@latest
       - name: Publish to NPM

@@ -1,5 +1,5 @@
 import UnoCSS from 'unocss/vite';
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
       formats: ['es'],
     },
     emptyOutDir: true,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
         extend: true,
       },
@@ -22,6 +22,6 @@ export default defineConfig({
       mode: 'shadow-dom',
       configFile: './uno.config.ts',
     }),
-    dts() as Plugin,
+    dts(),
   ],
 });

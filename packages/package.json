@@ -1,0 +1,43 @@
+{
+  "name": "plugin-search-widget-packages",
+  "private": true,
+  "type": "module",
+  "license": "GPL-3.0",
+  "author": {
+    "name": "Halo",
+    "url": "https://github.com/halo-dev"
+  },
+  "contributors": [
+    {
+      "name": "Ryan Wang",
+      "email": "i@ryanc.cc",
+      "url": "https://github.com/ruibaby"
+    }
+  ],
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm --filter @halo-dev/search-widget test",
+    "check": "biome check",
+    "check:fix": "biome check --write",
+    "example:dev": "pnpm -C search-widget dev",
+    "prepare": "cd .. && husky",
+    "publish": "pnpm -r publish --access public --no-git-checks"
+  },
+  "lint-staged": {
+    "*": [
+      "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@types/node": "^24.19.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@12.10.1"
+}
