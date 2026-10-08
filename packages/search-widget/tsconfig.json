@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2021",
-    "module": "es2020",
+    "module": "ESNext",
     "lib": ["es2021", "DOM", "DOM.Iterable"],
     "declaration": true,
     "declarationMap": true,
@@ -16,7 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,

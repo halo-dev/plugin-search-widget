@@ -2,7 +2,6 @@ import {
   defineConfig,
   definePreset,
   presetIcons,
-  presetUno,
   presetWind3,
   transformerCompileClass,
   transformerDirectives,
