@@ -19,6 +19,8 @@ export class SearchModal extends LitElement {
   @property({ type: Object })
   options = {};
 
+  private previouslyFocusedElement: HTMLElement | null = null;
+
   constructor() {
     super();
 
@@ -43,6 +45,15 @@ export class SearchModal extends LitElement {
     }
 
     if (this.open) {
+      if (changedProperties.get('open') !== true) {
+        let activeElement = document.activeElement;
+        while (activeElement?.shadowRoot?.activeElement) {
+          activeElement = activeElement.shadowRoot.activeElement;
+        }
+        this.previouslyFocusedElement =
+          activeElement instanceof HTMLElement ? activeElement : null;
+      }
+
       // Calculate scrollbar width to prevent layout shift
       const scrollbarWidth =
         window.innerWidth - document.documentElement.clientWidth;
@@ -54,6 +65,18 @@ export class SearchModal extends LitElement {
     } else {
       document.body.style.removeProperty('overflow');
       document.body.style.removeProperty('padding-right');
+    }
+  }
+
+  override updated(changedProperties: PropertyValues) {
+    if (changedProperties.get('open') !== true || this.open) {
+      return;
+    }
+
+    const element = this.previouslyFocusedElement;
+    this.previouslyFocusedElement = null;
+    if (element?.isConnected) {
+      element.focus({ preventScroll: true });
     }
   }
 
@@ -86,7 +109,7 @@ export class SearchModal extends LitElement {
   handleKeydown = (e: KeyboardEvent) => {
     const { key } = e;
 
-    if (key === 'Escape') {
+    if (this.open && key === 'Escape') {
       this.close();
       e.preventDefault();
     }

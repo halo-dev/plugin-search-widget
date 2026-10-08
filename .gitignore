@@ -72,5 +72,6 @@ application-local.properties
 
 /packages/*/node_modules/
 node_modules
+.vitest/
 /workplace/
 /src/main/resources/static

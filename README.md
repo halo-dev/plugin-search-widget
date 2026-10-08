@@ -48,6 +48,18 @@ halo:
       - "/path/to/plugin-search-widget"
 ```
 
+### 运行测试
+
+测试使用 Vitest Browser Mode 和 Playwright Chromium，建议使用 Node.js 24。首次运行前安装依赖和浏览器：
+
+```bash
+pnpm install --frozen-lockfile
+pnpm -C packages/search-widget exec playwright install chromium
+pnpm test
+```
+
+测试直接加载组件源码，无需启动 Halo 或手动打开测试页面。
+
 ## 主题适配
 
 ### 调用搜索弹框
